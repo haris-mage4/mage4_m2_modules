@@ -1,0 +1,89 @@
+<?php
+/**
+ * @var \Mageplaza\HelloWorld\Block\Display $block
+ */
+
+$queryString= strtolower($block->getData("queryString"));
+$searchResult=$block->getResult($queryString);
+$totalProducts= count($searchResult);
+//only 20 products to display
+
+if($totalProducts < 20){
+    $requiredProducts=(20 - $totalProducts);
+    // echo $requiredProducts;
+    // $moreProductIds=$block->loadMoreProductIds($requiredProducts,$queryString);
+    // echo "<pre>";
+    // print_r($moreProductIds);
+    // echo "</pre>";
+    // die('ssdf');
+}
+?>
+
+<div class="search results">
+<div class="products wrapper mgs-products grid products-grid">
+        <div class="products list items product-items">
+<?php
+$nCounter=0;
+foreach($searchResult as $productId){
+    $nCounter++;
+    //show only 20 records
+    $productInfo=$block->getProductDetials($productId);
+    $imageUrl=$block->getImageUrl($productInfo);
+    $addTocartUrl=$block->getAddToCartUrl($productInfo);
+    $formatedPrice=$block->getFormatedPrice($productInfo->getPrice());
+    //echo $formatedPrice;
+    $prodName=strtolower(trim($productInfo->getName()));
+    $prodSku=strtolower(trim($productInfo->getSku()));
+    $matchedClass='';
+    //echo 'query string:'.$queryString."sku:".$prodSku;
+    if($prodName == trim($queryString) || $prodSku == trim($queryString)){
+       // echo "Name or sku exactly matched";
+        $matchedClass='change-background';
+    }
+    if($nCounter <= 20){
+        
+    ?>
+            <li class="item product product-item <?php echo  $matchedClass; ?>">
+                <div class="product-item-info" data-container="product-grid">
+                    <div class="product-top"> <a href="<?php echo $productInfo->getProductUrl(); ?>"
+                            class="product photo product-item-photo" tabindex="-1"> <span
+                                class="product-image-container"> <span
+                                    class="parent_lazy product-image-wrapper lazy_loaded" style="padding-bottom: 100%;">
+                                    <img src="<?php echo $imageUrl; ?>"
+                                        alt="<?php echo $productInfo->getName(); ?>" class="img-fluid product-image-photo"
+                                        data-src="<?php echo $imageUrl; ?>">
+                                </span> </span> </a>
+                        <div class="label"></div>
+                        <div class="product-item-inner rtlsol1">
+                            <div class="product actions product-item-actions">
+                                <div data-role="add-to-links" class="actions-secondary"><a data-productid="<?php echo $productInfo->getId();?>"
+                                        class="action quickview gtm_event" aria-label="<?php echo $productInfo->getName(); ?>" title="<?php echo $productInfo->getName(); ?>"
+                                        href="<?php echo $productInfo->getProductUrl(); ?>"><span><?php echo $productInfo->getName(); ?></span></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product details product-item-details"> <strong class="product name product-item-name">
+                            <a class="product-item-link"
+                                href="<?php echo $productInfo->getProductUrl(); ?>"> <?php echo $productInfo->getName(); ?> </a> </strong>
+                        <div class="price-box price-final_price" data-role="priceBox" data-product-id="<?php echo $productInfo->getId();?>"
+                            data-price-box="product-id-<?php echo $productInfo->getId();?>"><span class="price-container price-final_price tax weee">
+                                <span id="product-price-<?php echo $productInfo->getId();?>" data-price-amount="<?php echo $productInfo->getPrice(); ?>" data-price-type="finalPrice"
+                                    class="price-wrapper "><span class="price"> <?php echo $formatedPrice; ?></span></span> </span></div>
+                        <div class="actions-primary">
+                            <form data-role="tocart-form"
+                                action="<?php echo $addTocartUrl; ?>"
+                                method="post" novalidate="novalidate"> 
+                                <?php echo $block->getBlockHtml('formkey')?>
+                                <button type="submit"
+                                    title="أضف إلى السلة" class="action tocart primary"> <span>أضف إلى السلة</span>
+                                </button></form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+    <?php
+    }
+}?>
+</div>
+</div>
+</div>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+        
+    <type name="Magezon\LookBook\Model\Profile">
+        <plugin name="extend_profile_marker" type="Baytonia\LookBookExtend\Plugin\ProfileModel" sortOrder="1" disabled="false"/>
+    </type>
+    
+    <preference for="Magezon\LookBook\Block\Profile" type="Baytonia\LookBookExtend\Block\Profile" />
+        
+</config>

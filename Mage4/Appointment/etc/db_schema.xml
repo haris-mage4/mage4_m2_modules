@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="Mage4_Appointment" resource="default" engine="innodb" comment="Appointment Form enquiry list">
+        <column xsi:type="int" name="id" padding="6" unsigned="false" nullable="false" identity="true" comment="ID" />
+        <column xsi:type="varchar" name="firstname" nullable="false" length="35" comment="FirstName" />
+        <column xsi:type="varchar" name="lastname" nullable="false" length="35" comment="LastName" />
+        <column xsi:type="varchar" name="email" nullable="false" length="25" comment="Email" />
+        <column xsi:type="varchar" name="phone" nullable="false" length="25" comment="Phone" />
+        <column xsi:type="varchar" name="address" nullable="false" length="255" comment="Address" />
+        <column xsi:type="varchar" name="comment" nullable="false" length="255" comment="Comment" />
+        <column name="created_at" nullable="false" xsi:type="datetime" default="CURRENT_TIMESTAMP" on_update="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id" />
+        </constraint>
+    </table>
+</schema>

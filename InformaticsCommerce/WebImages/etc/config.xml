@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2021 InformaticsCommerce. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <InformaticsCommerce_webimages>
+            <extensions>
+                <vector>
+                    <svg>svg</svg>
+                    <svg_xml>svg+xml</svg_xml>
+                </vector>
+                <web_image>
+                    <webp>webp</webp>
+                </web_image>
+            </extensions>
+        </InformaticsCommerce_webimages>
+        <dev>
+            <image>
+                <adapters>
+                    <GD2>
+                        <class>InformaticsCommerce\WebImages\Model\Image\Adapter\Gd2Rewrite</class>
+                    </GD2>
+                </adapters>
+            </image>
+        </dev>
+    </default>
+</config>

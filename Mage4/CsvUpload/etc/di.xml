@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Mage4\CsvUpload\Api\CsvRepositoryInterface" type="Mage4\CsvUpload\Model\CsvRepository"/>
+    <preference for="Mage4\CsvUpload\Api\Data\CsvInterface" type="Mage4\CsvUpload\Model\Data\Csv"/>
+    <preference for="Mage4\CsvUpload\Api\Data\CsvSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <virtualType name="Mage4\CsvUpload\Model\ResourceModel\Csv\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">Mage4_csvupload_csv</argument>
+            <argument name="resourceModel" xsi:type="string">Mage4\CsvUpload\Model\ResourceModel\Csv\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="Mage4_csvupload_csv_listing_data_source" xsi:type="string">Mage4\CsvUpload\Model\ResourceModel\Csv\Grid\Collection</item>
+                <item name="Mage4_csvupload_import_listing_data_source" xsi:type="string">Mage4\CsvUpload\Model\ResourceModel\Import\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    
+</config>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd"> 
+    <columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns"> 
+        <column name="reserve_quantity" class="Baytonia\Product\Ui\Component\Listing\Column\ReserveQuantity"> 
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                <item name="filter" xsi:type="string">text</item>
+                <item name="editor" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Reservation Quantity</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </column>
+        <column name="reserve_order" class="Baytonia\Product\Ui\Component\Listing\Column\ReserveOrder"> 
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                <item name="filter" xsi:type="string">text</item>
+                <item name="editor" xsi:type="string">text</item>
+                <item name="label" xsi:type="string" translate="true">Reserved Order Ids</item>
+                <item name="sortOrder" xsi:type="number">41</item>
+                </item>
+            </argument>
+        </column> 
+    </columns> 
+</listing>

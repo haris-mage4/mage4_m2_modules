@@ -1,0 +1,83 @@
+<style type="text/css">
+    .sku-product {
+        width: 50%;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .upload-csv {
+        width: 50%;
+        position: relative;
+        margin: 0 auto;
+    }
+
+    .admin__fieldset-import-service {
+        margin: 0 0 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .csv-btn {
+        display: block;
+        position: relative;
+        right: 50px;
+        top: -5px;
+    }
+
+    .upload-csv .admin__field-control {
+        margin-left: 0 !important;
+    }
+
+    .upload-csv input {
+        position: relative;
+        z-index: 5;
+    }
+
+    .mage4_csvupload-index-submit .page-title  {
+        display: none;
+
+    }
+.title-csv {
+    margin-top: 1.6rem;
+}
+</style>
+<div class="title-csv">
+    <h1>Extended Csv</h1>
+
+</div>
+
+<form action="<?= $block->escapeUrl($block->getUrl('Mage4_csvupload/index/process')) ?>" method="post"
+      enctype="multipart/form-data">
+    <?= $block->getBlockHtml('formkey') ?>
+    <div class="upload-csv">
+        <fieldset class="admin__fieldset admin__fieldset-import-service">
+            <h3><?= $block->escapeHtml(__('Upload Csv')); ?></h3>
+            <div class="fieldset admin__field">
+                <div class="admin__field-control">
+
+                    <input type="file" id="import_csv_file" name="import_csv_file" class="input-file required-entry"/>
+                </div>
+                <div class="csv-btn">
+                    <button title="<?= $block->escapeHtmlAttr(__('Import CSV File')) ?>" type="button"
+                            class="action-default scalable import-submit" data-ui-id="widget-button-0">
+                        <span><?= $block->escapeHtml(__('Import CSV File')) ?></span>
+                    </button>
+                </div>
+            </div>
+    </div>
+</form>
+<script>
+    require(['jquery', "mage/mage", "loadingPopup"], function (jQuery) {
+        jQuery('#import-form').mage('form').mage('validation');
+        (function ($) {
+            $('.import-submit').click(function () {
+                if ($(':input[name="import_csv_file"]').val()) {
+                    $('body').loadingPopup({
+                        timeout: false
+                    });
+                    $(this.form).submit();
+                }
+            });
+        })(jQuery);
+    });
+</script>

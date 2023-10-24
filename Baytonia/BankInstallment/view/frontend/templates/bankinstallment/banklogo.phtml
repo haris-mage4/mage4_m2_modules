@@ -1,0 +1,25 @@
+<?php
+/** @var \Baytonia\BankInstallment\Block\BankInstallment $block */
+$htmlId = $block->getBankLogoHtmlId();
+$bankCollection = $block->getBankCollection();
+
+?>
+
+
+<div class="baytonia-bankinstallment-standard">
+    <div><?php echo $block->getInstallmentText() ?><span></span><span><?php echo $block->getInstallmentPrice() ?></span></div>
+    <div class="baytonia-bankinstallment-flex-bankinstallment">
+        <div id="<?php echo $htmlId ?>" class="<?php echo $htmlId ?>" style="margin:auto">
+            <ul class="slides">
+                <?php
+                foreach ($bankCollection as $bank) {?>
+                        <li data-thumb="<?php echo $block->getBankImageUrl($bank) ?>">
+                            <a href="<?php echo $bank->getUrl() ?>">
+                                <img width="70px" height="70px" alt="<?php echo $bank->getName() ?>" src="<?php echo $block->getBankImageUrl($bank) ?>"/>
+                            </a>
+                        </li>
+                    <?php } ?>
+            </ul>
+        </div>
+    </div>
+</div>

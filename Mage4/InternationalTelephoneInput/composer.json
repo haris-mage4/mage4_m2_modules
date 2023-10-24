@@ -1,0 +1,29 @@
+{
+  "name": "Mage4/international-telephone-input",
+  "description": "International Telephone Input module for Magento 2 ",
+  "require": {
+    "php": "~7.1"
+  },
+  "type": "magento2-module",
+  "version": "1.0.2",
+  "license": "OSL-3.0",
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Mage4\\InternationalTelephoneInput\\": ""
+    }
+  },
+  "authors": [
+    {
+      "name": "Mage4 Core Team",
+      "email": "Mage4dev@gmail.com"
+    },
+    {
+      "name": "Sebfie",
+      "email": "sebastien.fieloux@gmail.com"
+    }
+  ],
+  "support": {
+    "email": "Mage4dev@gmail.com"
+  }
+}

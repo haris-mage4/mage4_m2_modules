@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mage4_CsvListingDownload::list" title="Uploaded Csv List and Download" resource="Mage4_CsvListingDownload::list" parent="Mage4_CsvUpload::csv" action="downloadadmin/csv" module="Mage4_CsvListingDownload" sortOrder="20"/>
+    </menu>
+</config>

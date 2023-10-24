@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Baytonia\CustomApis\Api\WebServicesManagementInterface" type="Baytonia\CustomApis\Model\WebServicesManagement"/>
+    <preference for="Baytonia\CustomApis\Api\ProductManagementInterface" type="Baytonia\CustomApis\Model\ProductManagement"/>
+    <preference for="Baytonia\CustomApis\Api\HomePageServicesInterface" type="Baytonia\CustomApis\Model\HomePageServices"/>
+    <preference for="Baytonia\CustomApis\Api\CategoryManagementInterface" type="Baytonia\CustomApis\Model\CategoryManagement"/>
+    <preference for="Baytonia\CustomApis\Api\MenuServicesInterface" type="Baytonia\CustomApis\Model\MenuServices"/>
+    <preference for="Baytonia\CustomApis\Api\LookBookManagementInterface" type="Baytonia\CustomApis\Model\LookBookManagement"/>
+    <preference for="Baytonia\CustomApis\Api\CMSManagementInterface" type="Baytonia\CustomApis\Model\CMSManagement"/>
+    <preference for="Baytonia\CustomApis\Api\UpdateProductsInterface" type="Baytonia\CustomApis\Model\UpdateProducts"/>
+    <type name="Amasty\Rewards\Model\Repository\RewardsRepository">
+        <plugin name="extend_getblance_api" type="Baytonia\CustomApis\Plugin\Repository\RewardsRepository" sortOrder="1" disabled="false"/>
+    </type>
+    <!-- <preference for="Acodesh\Login\Controller\Ajax\VerifyOtp" type="Baytonia\CustomApis\Controller\Acodesh\Login\Controller\Ajax\VerifyOtp"/> -->
+    <preference for="Webkul\MobikulCore\Helper\Catalog" type="Baytonia\CustomApis\Helper\Webkul\MobikulCore\Helper\Catalog"/>
+    <preference for="Webkul\MobikulApi\Controller\Customer\SaveAccountInfo" type="Baytonia\CustomApis\Controller\Webkul\MobikulApi\Customer\SaveAccountInfo"/>
+</config>

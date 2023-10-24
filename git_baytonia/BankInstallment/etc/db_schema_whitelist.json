@@ -1,0 +1,20 @@
+{
+    "baytonia_bankinstallment_bank": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "sort_order": true,
+            "status": true,
+            "image": true,
+            "url": true,
+            "store_id": true
+        },
+        "index": {
+            "BK_PO_ENTITY_ID": true,
+            "BK_PO_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

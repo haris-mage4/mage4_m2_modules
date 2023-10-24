@@ -1,0 +1,50 @@
+<script>
+    require([
+        'jquery',
+        'prototype',
+    ], function ($) {
+        function createShipment() {
+            params = {};
+            new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+                loaderArea: true,
+                asynchronous: true,
+                parameters: params,
+                dataType:'json',
+                onComplete: function(response) {
+                    if(response.responseJSON){
+                        if(response.responseJSON.message == 'error'){
+                            $('#messagesshipment .message-error span.message-text').text(response.responseJSON.text);
+                            $('#messagesshipment .message-error').show();
+                            $('#messagesshipment .message-error').delay(12000).fadeOut();
+                            return false;
+                        }
+                    }else{
+                        $('#messagesshipment .message-success span.message-text').text('Shipment Created Successfully');
+                        $('#messagesshipment .message-success').show();
+                        $('#messagesshipment .message-success').delay(12000).fadeOut();
+                    }
+                }
+            });
+        }
+        $('#createshipmentbtn').click(function () {
+            createShipment();
+        });
+    });
+</script>
+
+<?php echo $block->getButtonHtml() ?>
+ 
+<div id="messagesshipment" >
+    <div class="messages">
+        <div class="message message-success success" style="display: none;">
+            <div data-ui-id="messages-message-success">
+                <span class="message-text"></span>
+            </div>
+        </div>
+        <div class="message message-error error" style="display: none;">
+            <div data-ui-id="messages-message-error">
+                <span class="message-text"></span>
+            </div>
+        </div>
+    </div>
+</div>

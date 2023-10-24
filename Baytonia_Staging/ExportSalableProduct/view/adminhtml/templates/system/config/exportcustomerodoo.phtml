@@ -1,0 +1,51 @@
+<script>
+    require([
+        'jquery',
+        'prototype',
+    ], function ($) {
+        function exportOdooCustomer() {
+            params = {};
+            new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+                loaderArea: true,
+                asynchronous: true,
+                parameters: params,
+                onSuccess: function (response) {
+                    $('#messages-odoocustomer .message-success span.message-text').text('File Exported Successfully');
+                    $('#messages-odoocustomer .message-success').show();
+                    $('#messages-odoocustomer .message-success').delay(8000).fadeOut();
+                },
+                onFailure: function() {               
+                    $('#messages-odoocustomer .message-error span.message-text').text('There has been error processing your request');
+                    $('#messages-odoocustomer .message-error').show();
+                    $('#messages-odoocustomer .message-error').delay(8000).fadeOut();
+                    return false;
+                },
+                onComplete: function() {               
+                    $('#messages-odoocustomer .message-success span.message-text').text('File Exported Successfully');
+                    $('#messages-odoocustomer .message-success').show();
+                    $('#messages-odoocustomer .message-success').delay(8000).fadeOut();
+                }
+            });
+        }
+        $('#exportodoocustbtn').click(function () {
+            exportOdooCustomer();
+        });
+    });
+</script>
+
+<?php echo $block->getButtonHtml() ?>
+ 
+<div id="messages-odoocustomer" >
+    <div class="messages">
+        <div class="message message-success success" style="display: none;">
+            <div data-ui-id="messages-message-success">
+                <span class="message-text"></span>
+            </div>
+        </div>
+        <div class="message message-error error" style="display: none;">
+            <div data-ui-id="messages-message-error">
+                <span class="message-text"></span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{
+    "quote": {
+        "column": {
+            "address_type": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "address_type": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "address_type": true
+        }
+    }
+}

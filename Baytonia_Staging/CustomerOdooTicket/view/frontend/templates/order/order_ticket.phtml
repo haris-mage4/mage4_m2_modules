@@ -1,0 +1,7 @@
+<?php $helper = $this->helper('Baytonia\CustomerOdooTicket\Helper\Data');
+$enabled = $helper->isEnabled();
+$_order = $block->getOrder();
+ ?>
+<?php if($enabled): ?>
+<a target="_blank" href="<?php echo $helper->getSubmitUrl($_order) ?>" class="primary"><span><?php echo __("Submit a ticket") ?></span></a>
+<?php endif; ?>

@@ -1,0 +1,98 @@
+<div id="appointment-form" class="mage4-appointmet-form">
+    <form class="appointment form" action=" <?= $block->getFormAction(); ?>" id="appointment-form" method="post"
+          data-hasrequired=" <?= __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
+        <input type="hidden" name="cproduct_id" id="cproduct_id" value="0"/>
+        <fieldset class="fieldset">
+            <legend class="legend">
+				<span>
+					<?= __("Appointment Form") ?>
+				</span>
+            </legend>
+            <br/>
+            <div class="field name required">
+                <label class="label" for="firstname">
+					<span>
+						<?= __('FirstName') ?>
+					</span>
+                </label>
+                <div class="control">
+                    <input name="firstname" id="firstname" title="<?= __('FirstName') ?>" class="input-text" type="text"
+                           data-validate="{required:true}"/>
+                </div>
+            </div>
+               <div class="field name required">
+                <label class="label" for="lastname">
+                    <span>
+                        <?= __('LastName') ?>
+                    </span>
+                </label>
+                <div class="control">
+                    <input name="lastname" id="lastname" title="<?= __('LastName') ?>" class="input-text" type="text"
+                           data-validate="{required:true}"/>
+                </div>
+            </div>
+            <div class="field email required">
+                <label class="label" for="email">
+					<span>
+						<?= __('Email') ?>
+					</span>
+                </label>
+                <div class="control">
+                    <input name="email" id="email" title="<?= __('Email') ?>" class="input-text" type="email"
+                           data-validate="{required:true, 'validate-email':true}"/>
+                </div>
+            </div>
+            <div class="field phone required">
+                <label class="label" for="phone">
+					<span>
+						<?= __('Phone Number') ?>
+					</span>
+                </label>
+                <div class="control">
+                    <input name="phone" id="phone" title="<?= __('Phone Number') ?>" value="" class="input-text"
+                           type="text"
+                           data-validate="{required:true, 'validate-number':true, 'validate-greater-than-zero':true, 'maxlength':10}"/>
+                </div>
+            </div>
+
+              <div class="field address required">
+                <label class="label" for="address">
+                    <span>
+                        <?= __('Address') ?>
+                    </span>
+                </label>
+                <div class="control">
+                    <input name="address" id="address" title="<?= __('Address') ?>" class="input-text"
+                               type="text"
+                              data-validate="{required:true}"/>
+                </div>
+            </div>
+
+                        <div class="field comment required">
+                <label class="label" for="comment">
+					<span>
+						<?= __('Message') ?>
+					</span>
+                </label>
+                <div class="control">
+                    <textarea name="comment" id="comment" title="<?= __('Message') ?>" class="input-text"
+                              data-validate="{required:true}"></textarea>
+                </div>
+            </div>
+
+           
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <input type="hidden" name="hideit" id="hideit" value=""/>
+                <button type="submit" title="
+					<?= __('Submit') ?>" class="action submit primary" id="appointment_btn">
+					<span>
+						<?= __('Submit') ?>
+					</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+

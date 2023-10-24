@@ -1,0 +1,126 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Framework\View\Element\Template
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ * @var \Mage4\AdvanceTopNavbar\Helper\Data
+ *
+ */
+
+$productCollection = $block->getData('product_collection');
+$category = $block->getData('category');
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$imageHelper = $this->helper('Magento\Catalog\Helper\Image');
+$customHelper = $this->helper('Mage4\AdvanceTopNavbar\Helper\Data'); // Load your custom helper here
+
+?>
+<?php if ($productCollection && $productCollection->getSize()): ?>
+    <?= $block->getChildHtml('toolbar') ?>
+    <?= $block->getChildHtml('additional') ?>
+    <h3 class="current_category_title"><?= $category->getName() ?></h3>
+    <div class="products wrapper grid products-grid">
+        <?php foreach ($productCollection as $_product): ?>
+            <li class="item product product-item">
+                <div class="product-item-info"
+                     id="product-item-info-<?= $_product->getId() ?>"
+                     data-container="product-grid">
+                    <?php
+                    // Get the product image URL
+                    $productImageUrl = $imageHelper->init($_product, 'category_page_grid')
+                        ->setImageFile($_product->getImage()) // Use the main product image
+                        ->getUrl();
+
+                    $productImageAlt = $block->escapeHtml($_product->getName()); // Alt text for the image
+                    ?>
+                    <span class="product-image-container product-image-container-5" style="width: 300px;">
+                        <span class="product-image-wrapper" style="padding-bottom: 138%;">
+                            <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                            class="product photo product-item-photo"
+                            tabindex="-1">
+                                <img src="<?= $productImageUrl ?>"
+                                    alt="<?= $productImageAlt ?>"
+                                    class="product-image-photo"/>
+                            </a>
+                        </span>
+                    </span>
+                    <div class="product details product-item-details">
+                        <strong class="product name product-item-name">
+                            <a class="product-item-link"
+                               href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
+                                <?= $block->stripTags($_helper->productAttribute($_product, $_product->getName(), 'name')) ?>
+                            </a>
+                        </strong>
+
+                        <?= $block->getReviewsSummaryHtml($_product, 'short') ?>
+
+                        <!-- Display the product price -->
+                        <div class="price-box">
+                            <div class="product-price price-container price-final_price tax weee">
+                                <?php
+                                $productId = $_product->getId();
+                                $productPrice = $customHelper->getProductPriceById($productId);
+                                if ($productPrice !== null) { ?>
+                                    <span class="price"><?php echo '$' . $productPrice; ?></span>
+                                <?php
+                                } else {
+                                    echo __('Price not available');
+                                }
+                                ?>
+                            </div>
+                        </div>
+
+                        <?= $block->getProductDetailsHtml($_product) ?>
+                        <!-- Add the "Add to Cart" button here -->
+                        <div class="product-item-inner">
+                            <div class="product actions product-item-actions">
+                                <div class="actions-primary">
+                                    <?php if ($_product->isSaleable()): ?>
+                                        <?php $productId = $_product->getId(); ?>
+                                        <?php $formKey = $customHelper->getFormKey(); ?>
+                                        <?php $uenc = $block->getUrl('catalog/product/view', ['id' => $productId]); ?>
+                                        <form data-role="tocart-form"
+                                              data-product-sku="<?= $escaper->escapeHtml($_product->getSku()) ?>"
+                                              action="<?= $escaper->escapeUrl($block->getUrl('checkout/cart/add', ['product' => $productId, 'form_key' => $formKey])) ?>"
+                                              data-mage-init='{"catalogAddToCart": {}}'
+                                              method="post">
+                                            <input type="hidden" name="product" value="<?= $escaper->escapeHtmlAttr($productId) ?>">
+                                            <input type="hidden" name="form_key" value="<?= $escaper->escapeHtmlAttr($formKey) ?>">
+                                            <input type="hidden" name="uenc" value="<?= $escaper->escapeHtmlAttr($uenc) ?>">
+                                            <?= $block->getBlockHtml('formkey') ?>
+                                            <button type="submit"
+                                                    title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                    class="action tocart primary">
+                                                <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </div>
+    <div class="current_cat_link">
+        <a href="<?=$category->getUrl()?>" class="cat_link">
+            <span class="cat_link_txt">View All Products</span>
+            <svg width="34" height="13" viewBox="0 0 34 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M33.601 7.10104C33.933 6.7691 33.933 6.2309 33.601 5.89896L28.1917 0.489592C27.8597 0.157647 27.3215 0.157647 26.9896 0.489592C26.6576 0.821538 26.6576 1.35973 26.9896 1.69167L31.7979 6.5L26.9896 11.3083C26.6576 11.6403 26.6576 12.1785 26.9896 12.5104C27.3215 12.8424 27.8597 12.8424 28.1917 12.5104L33.601 7.10104ZM0 7.35H33V5.65H0V7.35Z" fill="#db0000"></path>
+            </svg>
+        </a>
+    </div>
+<?php else: ?>
+    <div class="message info empty">
+        <div><?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+    </div>
+<?php endif; ?>

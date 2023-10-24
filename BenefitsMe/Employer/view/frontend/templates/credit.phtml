@@ -1,0 +1,106 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+$currentCustomerId = $customerSession->getCustomer()->getId();
+
+$orders = $objectManager->create("Magento\Sales\Model\Order")->getCollection()->addFieldToFilter('customer_id', $currentCustomerId)->setOrder('created_at','DESC');
+
+$orderIds = array();
+$orderIncrementIds = array();
+
+foreach($orders as $order) {
+    $orderId = $order->getId();
+    $orderIds[] = $orderId;
+    $orderIncrementIds[$orderId] = $order->getIncrementId();
+}
+
+$customer = $customerSession->getCustomer();
+$data = $customer->getData();
+
+$balanceCollection = $objectManager->get('Magento\CustomerBalance\Model\BalanceFactory');
+$model = $balanceCollection->create();
+$model->setCustomerId($customer->getId())->loadByCustomer();
+$availableCredit = "$".number_format($model->getAmount(), 2);
+$overallCreditLimit = "$".number_format($customer->getCreditLimit(), 2);
+$outstanding = "$".number_format(floatval(number_format($customer->getCreditLimit(), 2, ".", "")) - floatval(number_format($model->getAmount(), 2, ".", "")), 2);
+?>
+<b>Overall Credit Limit:</b> <?php echo $overallCreditLimit; ?><br />
+<b>Outstanding Balance</b> <?php echo $outstanding; ?><br />
+<b>Available Credit:</b> <?php echo $availableCredit; ?><br />
+<br />
+<?php
+
+// Get the Resource Connection instance
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+
+// Get the connection object
+$connection = $resource->getConnection();
+
+$sql = "SELECT * FROM agreements WHERE order_id IN (".implode(',', $orderIds).")";
+
+// Execute the query and fetch the results
+$results = $connection->fetchAll($sql);
+
+foreach ($results as $result) {
+        
+    $date = new DateTime($result['date_created']);
+    $orderDate = $date->format('m/d/Y');
+
+    echo "<a href='#' id='toggle_".$result['id']."'><b>".$orderDate." - Order #".$orderIncrementIds[$result['order_id']]."</b> (view/hide details)</a><br />";
+    
+    $formattedTerm = "3 months";
+    switch($result['term']) {
+        case "6months":
+            $formattedTerm = "6 months";            
+            break;
+        case "9months":
+            $formattedTerm = "9 months";   
+            break;
+        case "12months":
+            $formattedTerm = "12 months";   
+            break;
+    }
+    
+    $sql = "select * from ledger where agreement_id = " . $result['id'].";";
+    $ledgerData = $connection->fetchAll($sql);
+    
+    $amtLeft = 0;
+    
+    foreach($ledgerData as $line) {   
+        if($line['status'] == "pending") {
+            $amtLeft += $line['amount'];
+        }
+    }
+    
+    echo "<div id='schedule_".$result['id']."' style='display: none; margin-top: 10px;'>";
+    echo "<b>Overall Repayment Total:</b> " . $result['total']."<br />";
+    echo "<b>Repayment Terms:</b> ".$formattedTerm."<br />";
+    echo "<b>Remaining Payments:</b> $".number_format($amtLeft, 2)."<br /><br />"; 
+    
+    echo "<table style='width: auto; min-width: 500px !important;'><tr>";
+    echo "<th>Payment Amount</th>";
+    echo "<th>Paycheck Date</th>";
+    echo "<th>Status</th>";
+    echo "</tr>";
+    foreach($ledgerData as $line) {            
+        echo "<tr>";
+        echo "<td>$".number_format($line['amount'], 2)."</td>";
+        echo "<td>".$line['date']."</td>";
+        echo "<td>".$line['status']."</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+    
+    echo "</div><br />";
+    echo '<script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var toggleButton = document.getElementById("toggle_'.$result['id'].'");
+        toggleButton.addEventListener("click", function() {
+          var scheduleDiv = document.getElementById("schedule_'.$result['id'].'");
+          scheduleDiv.style.display = scheduleDiv.style.display === "none" ? "" : "none";
+        });
+      });
+    </script>';
+}

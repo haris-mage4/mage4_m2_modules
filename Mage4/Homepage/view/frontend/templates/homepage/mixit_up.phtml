@@ -1,0 +1,35 @@
+<div class="mixit-up-main-container">
+    <ul class="c-filter controls">
+        <li class="control" data-filter="all">All</li>
+        <?php foreach($block->categories() as $category){ ?>
+        <li class="control" data-filter=".<?=strtolower(str_replace(' ', '_', $category->getName()))?>"><?=$category->getName()?></li>
+        <?php } ?>
+    </ul>
+
+    <div class="mix-container">
+    <?php 
+        foreach($block->categories() as $category){ 
+            foreach($block->categoryProducts($category) as $product) { ?>
+            <div class="mix <?=strtolower(str_replace(' ', '_', $category->getName()))?>">
+        <?php  echo $this->getLayout()->createBlock("Magento\Catalog\Block\Product\ListProduct")->setTemplate("Mage4_Homepage::homepage/mixit_up_products.phtml")->setTemplateProduct($product)->toHtml(); ?>
+            </div>
+    <?php   }
+            
+        }
+    ?>
+        <?php foreach($block->categories() as $category){ ?>
+        <div class="gap"></div>
+        <?php } ?>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'mage4/mixitup'], function($, mixitup){
+        var containerEl = document.querySelector('.mixit-up-main-container');
+        var parent = $(".mix-container");
+        var divs = parent.children('div.mix');
+        while (divs.length) {
+            //parent.append(divs.splice(Math.floor(Math.random() * divs.length), 1)[0]);
+        }
+        var mixer = mixitup(containerEl);
+    });
+</script>

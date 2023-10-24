@@ -1,0 +1,51 @@
+<?php
+
+/** @var \Mage4\OrderGrid\Block\Adminhtml\Order\View\Tab\MerchantAccountTab $block */
+?>
+
+
+<form id="edit_form" action="<?=$block->formSubmitUrl()?>" method="post" novalidate="novalidate">
+
+    <input name="form_key" type="hidden" value="<?=$block->getFormKey()?>">
+    <input name="order_id" type="hidden" value="<?=$block->getOrderId()?>">
+    <fieldset class="fieldset admin__fieldset " id="add_sitemap_form">
+        <legend class="admin__legend legend">
+            <span>Merchant Account</span>
+        </legend>
+        <br>
+        <div class="messages"></div>
+        <div class="admin__field field field-sitemap_filename  required _required with-note"
+             data-ui-id="adminhtml-edit-0-form-fieldset-element-form-field-sitemap-filename">
+            <label class="label admin__field-label" for="sitemap_filename"
+                   data-ui-id="adminhtml-edit-0-form-fieldset-element-text-sitemap-filename-label"><span>Account</span></label>
+            <div class="admin__field-control control">
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account1" type="radio" name="merchant_account" value="BPX">
+                <label for="merchant_account1">BPX</label><br><br>
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account2" type="radio" name="merchant_account" value="Z-TRADE">
+                <label for="merchant_account2">Z-TRADE</label><br><br>
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account3" type="radio" name="merchant_account" value="OC">
+                <label for="merchant_account3">OC</label><br><br>
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account4" type="radio" name="merchant_account" value="RCP">
+                <label for="merchant_account4">RCP</label><br><br>
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account5" type="radio" name="merchant_account" value="BITCOIN">
+                <label for="merchant_account5">BITCOIN</label><br><br>
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account6" type="radio" name="merchant_account" value="ZELLE">
+                <label for="merchant_account6">ZELLE</label><br><br>
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account7" type="radio" name="merchant_account" value="Declined">
+                <label for="merchant_account7">Declined</label><br><br>
+
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account8" type="radio" name="merchant_account" value="Fraud">
+                <label for="merchant_account8">Fraud</label><br><br>
+                <input class="radio required-entry" data-validate="{'validate-one-required-by-name':true}" id="merchant_account9" type="radio" name="merchant_account" value="Suspicious">
+                <label for="merchant_account9">Suspicious</label><br><br>
+            </div>
+        </div>
+    </fieldset>
+    <div class="page-actions-buttons" style="width: 100%">
+        <button style="margin:0 auto;" id="save" title="Save Config" type="submit"
+                class="action-default scalable save primary ui-button ui-corner-all ui-widget"
+                backend-button-widget-hook-id="buttonIdgV6jNBsVZ8" data-ui-id="page-actions-toolbar-save-button">
+            <span>Save</span>
+        </button>
+    </div>
+</form>

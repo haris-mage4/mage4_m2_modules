@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <!-- <link src="Acodesh_Login::js/proceed-to-checkout.js"/> -->
+        <css src="Acodesh_Login::css/custom-login-popup.css" />
+        <css src="Acodesh_Login::css/intlTelInput.css"/>
+        <!-- <link src="Acodesh_Login::js/action/customer-authentication-popup.js"/> -->
+    </head>
+    <body>
+        <referenceBlock name="register-link1">
+            <arguments>
+                <argument name="class" xsi:type="string">customer-popup-link register-link1</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="authorization-link-login">
+            <arguments>
+                <argument name="class" xsi:type="string">customer-popup-link login-link</argument>
+            </arguments>
+        </referenceBlock>
+         <referenceContainer name="header-wrapper">
+            <referenceBlock name="minicart">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="minicart_content" xsi:type="array">
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Acodesh_Login/minicart/content</item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+       
+    </body>
+</page>

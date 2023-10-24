@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="employer_info" translate="label" sortOrder="999">
+			<label>Employers</label>
+		</tab>
+		<section id="employer_info" sortOrder="10" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+			<label>Employer Information</label>
+			<tab>employer_info</tab>
+			<resource>BenefitsMe_Employer::config_benefitsme_employer</resource>
+			<group id="employer_info" sortOrder="10" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+				<label>Employer Information</label>
+				<field id="employer_id" type="text" sortOrder="10" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+					<label>Employer ID</label>
+					<comment>This is the 'Employer ID' that employees will need to enter during their onboarding process with BenefitsMe.com</comment>
+				</field>
+				<field id="legal_name" type="text" sortOrder="10" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+					<label>Legal Name</label>
+					<comment>The legal name of the emplooyer</comment>
+				</field>
+				<field id="dba_name" type="text" sortOrder="10" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+					<label>DBA Name</label>
+					<comment>The preferred DBA name</comment>
+				</field>
+				<field id="address" type="textarea" sortOrder="10" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+					<label>Address</label>
+					<comment/>
+				</field>
+				<field id="point_of_contact" type="textarea" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>Primary Point of Contact (PPOC)</label>
+					<comment/>
+				</field>
+			</group>
+			<group id="eligibility" sortOrder="11" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+				<label>Eligibility Requirements</label>
+				<field id="criteria" type="text" sortOrder="11" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+					<label>Initial Minimum Criteria ID</label>
+					<comment>This ID can be found in the SignupAdmin panel</comment>
+				</field>
+				<field id="approval" type="text" sortOrder="12" showInWebsite="1" showInStore="0" showInDefault="0" translate="label">
+					<label>Initial Approval Amount ID</label>
+					<comment>This ID can be found in the SignupAdmin panel</comment>
+				</field>
+			</group>
+			
+		</section>
+	</system>
+</config>

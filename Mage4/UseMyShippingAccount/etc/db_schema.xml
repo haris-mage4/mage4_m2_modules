@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="ic_shippingoptions_adminhtml" resource="default" engine="innodb" comment="Shipping Options Collection">
+        <column xsi:type="int" name="option_id" unsigned="false" nullable="false" identity="true" comment="Option ID" />
+        <column xsi:type="varchar" name="option_label" nullable="false" length="35" comment="Option Label" />
+        <column xsi:type="varchar" name="option_code" nullable="false" length="35" comment="Option Code" />
+        <column xsi:type="varchar" name="option_input_type" nullable="false" length="25" comment="Option Input Type" />
+        <column xsi:type="varchar" name="is_required"  nullable="false"  length="25" default="0"  comment="Is Required" />
+        <column xsi:type="varchar" name="apply_to"  nullable="false"  length="255"  comment="Apply To" />
+        <column xsi:type="varchar" name="option_default_value" nullable="false" length="255" comment="Default Value" />
+        <column xsi:type="varchar" name="option_values"  nullable="false"  length="255"  comment="Values" />
+        <column xsi:type="varchar" name="sort_order" nullable="false" length="255" comment="Sort Order" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="option_id" />
+        </constraint>
+    </table>
+    <table name="quote" resource="sales" engine="innodb">
+        <column xsi:type="varchar" name="selected_shippingoptions" nullable="true" length="255" comment="Selected options Quote" />
+    </table>
+    <table name="sales_order" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="selected_shippingoptions" nullable="true" length="255" comment="Selected options Order" />
+    </table>
+</schema>

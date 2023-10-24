@@ -1,0 +1,112 @@
+<script>
+    require([
+        'jquery'
+],
+function ($) {
+        $(document).ready(function(){
+            $("body").on("input","input[name='telephone']",function(){
+                console.log($(this).val());
+                var arabiclang = toEnglishNumber($(this).val());
+                $(this).val(arabiclang);
+                
+                console.log(arabiclang);
+            })
+            
+            function toEnglishNumber(strNum) {
+                return strNum.replace(/[\u0660-\u0669]/g, function (c) {
+        return c.charCodeAt(0) - 0x0660;
+    }).replace(/[\u06f0-\u06f9]/g, function (c) {
+       return c.charCodeAt(0) - 0x06f0;
+   });
+    }
+        })
+        
+     
+     
+     
+     // function to get browser version so to do the jquery magic only on safari 
+function get_browser() {
+    var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+    if(/trident/i.test(M[1])){
+        tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+        return {name:'IE',version:(tem[1]||'')};
+        }   
+    if(M[1]==='Chrome'){
+        tem=ua.match(/\bOPR|Edge\/(\d+)/)
+        if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+        }   
+    M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+    return {
+      name: M[0],
+      version: M[1]
+    };
+ }
+var browser=get_browser();
+
+
+
+
+
+//Custom datalist by bilal
+
+jQuery(document).ready(function(){
+    if(browser.name == "Safari" && browser.version <= 11 ){//browser.name == "Chrome" && browser.version == "95"
+        jQuery("body").on("input , click","#dropList",function(){
+
+            var array = [];
+            jQuery("#city_list > option").each(function( index ) {
+              array.push(jQuery(this).attr("value"));
+            });
+             
+            jQuery(".safari-datalist").remove();
+              var searchInput = $(this).val().toLowerCase();
+    var listingcs = "";
+    for (var i = 0; i < array.length; i++) {
+      if ((array[i].toLowerCase().indexOf(searchInput) >= 0)) {
+        listingcs = listingcs + "<span style='display:block;'>" + array[i] + "</span>";
+      } 
+
+    }
+    jQuery(this).after("<div class='safari-datalist'> " + listingcs + " </div>");        
+        })
+        
+        jQuery("body").on("change","#dropList",function(){
+            //jQuery(".safari-datalist").remove();
+        })
+        
+        jQuery("body").on("click",".safari-datalist span",function(){
+            var cityfromlist = jQuery.trim(jQuery(this).html());
+            $("#dropList").val(cityfromlist).trigger('keyup');
+            $('#dropList').trigger('keyup');
+            jQuery(".safari-datalist").remove();
+        })   
+    }  
+})
+     
+     
+        
+        
+    });
+</script>
+
+
+<style>
+div.control{position: relative;}
+.safari-datalist{
+    
+    position: absolute;
+    background: #ffffff;
+    width: 100%;
+    z-index: 99;
+    border: 1px solid;
+    padding: 0px 10px;
+    max-height: 140px;
+    overflow: scroll;
+}
+.safari-datalist span{   
+    display: block;
+    cursor: pointer;
+}
+
+</style>

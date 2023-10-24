@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Customer Login</title>
+        <css src="Acodesh_Login::css/custom-login-popup.css" />
+         <css src="Acodesh_Login::css/intlTelInput.css"/>
+    </head>
+    <referenceContainer name="content">
+        <container name="customer.login.container" label="Customer Login Container" htmlTag="div" htmlClass="login-container">
+            <block class="Magento\Framework\View\Element\Template" name="login-register-popup"
+                   as="login-register-popup" template="Acodesh_Login::form/popup/login-register.phtml">
+                <block class="Acodesh\Login\Block\Form\Login" name="customer-popup-login"
+                       template="Acodesh_Login::form/popup/login.phtml">
+                </block>
+                <block class="Acodesh\Login\Block\Form\Register" name="customer-popup-register"
+                       template="Acodesh_Login::form/popup/register.phtml">
+                </block>
+                <block class="Acodesh\Login\Block\Form\Register" name="customer-forgot-password"
+                       template="Acodesh_Login::form/popup/forgotpassword.phtml">
+                </block>
+            </block>
+        </container>
+    </referenceContainer>
+    <body>
+        <referenceContainer name="content">
+            <block class="Acodesh\Login\Block\PhoneNumber"
+                   ifconfig="internationaltelephoneinput/general/enabled"
+                   template="Acodesh_Login::js-customer.phtml"
+                   name="international.telephone.input"/>
+        </referenceContainer>
+    </body>
+</page>

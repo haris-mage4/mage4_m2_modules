@@ -1,0 +1,21 @@
+<?php
+/** @var Mage4\ProductOptionsSummary\Block\Product\Options\Summary $block */
+echo "ddd";exit;
+?>
+<div class="summary-container">
+    <div class="selected-option">
+        <h4>Options Summary</h4>
+    </div>
+    <div class="selected-option-value">
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function ($) {
+       $('.field').click(function () {
+           $(this).attr('data-option_id');
+       });
+    });
+</script>
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+	<group id="default">
+		<job instance="Baytonia\OutOfStockFix\Cron\SyncEmail" method="execute" name="guest_outofstock_alert">
+			<schedule>0 * * * *</schedule>
+		</job>
+        <job instance="Baytonia\OutOfStockFix\Cron\SyncEmail" method="mergeTable" name="merge_alert_table">
+			<schedule>*/5 * * * *</schedule>
+		</job>
+	</group>
+</config>

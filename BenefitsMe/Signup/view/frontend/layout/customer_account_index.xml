@@ -1,0 +1,12 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Customer\Block\Account\Dashboard\Info" name="customer_account_dashboard_info" as="info" template="Magento_Customer::account/dashboard/info.phtml" cacheable="false">
+                <container name="customer.account.dashboard.info.blocks" as="additional_blocks"/>
+            </block>
+            <block class="Magento\Customer\Block\Account\Dashboard" name="customer_account_employee_info" after="customer_account_dashboard_info" template="BenefitsMe_Signup::account/dashboard.phtml" >
+            </block>
+            <block class="Magento\Customer\Block\Account\Dashboard\Address" name="customer_account_dashboard_address" as="address" template="Magento_Customer::account/dashboard/address.phtml" cacheable="false" after="customer_account_employee_info" />
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,32 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magezon\NinjaMenus\Data\Element\Item">
+        <plugin name="menuextend_magezoneitem" type="Baytonia\MenuExtend\Plugin\Magezone\Item" sortOrder="10" disabled="false"  />
+    </type>
+    <type name="Magezon\Builder\Data\Elements">
+        <arguments>
+            <argument name="elements" xsi:type="array">
+                <item name="tabs" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">false</item>
+                </item>
+                <item name="single_image" xsi:type="array">
+                    <item name="disabled" xsi:type="boolean">false</item>
+                </item>
+                <item name="menu_item" xsi:type="array">
+                    <item name="name" xsi:type="string" translate="true">Menu Item</item>
+                    <item name="class" xsi:type="string">Magezon\NinjaMenus\Data\Element\Item</item>
+                    <item name="element" xsi:type="string">Magezon_NinjaMenus/js/builder/element/item</item>
+                    <item name="block" xsi:type="string">Magezon\NinjaMenus\Block\Element\Item</item>
+                    <item name="template" xsi:type="string">Baytonia_MenuExtend::element/item.phtml</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="icon" xsi:type="string">fas mgz-fa-bars</item>
+                    <item name="is_collection" xsi:type="boolean">true</item>
+                    <item name="icon_styles" xsi:type="array">
+                        <item name="background-color" xsi:type="string">#ed1d24</item>
+                    </item>
+                    <item name="group" xsi:type="string">content</item>
+                    <item name="area" xsi:type="string">menu</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

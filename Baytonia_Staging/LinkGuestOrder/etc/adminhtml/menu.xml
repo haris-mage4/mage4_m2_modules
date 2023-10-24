@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Baytonia_LinkGuestOrder::menu_item"
+             title="Link Guest Orders" module="Baytonia_LinkGuestOrder"
+             sortOrder="100" parent="Magento_Customer::customer"
+             action="guestorders/link/index"
+             resource="Baytonia_LinkGuestOrder::menu_item"
+        />
+    </menu>
+</config>

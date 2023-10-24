@@ -1,0 +1,39 @@
+<!-- ko ifnot: (isCustomerLoggedIn()) -->
+    <div><span>Are you tax exempt?</span></div>
+    <div data-bind="foreach: { data: tax_exempt_options, as: 'option' }">
+        <input type="radio" name="tax_exempt_options"
+               data-validate="{required:true}"
+               data-bind="attr: { id: 'option_' + $index() }, checkedValue: option.value, checked: $parent.selectedOption"/>
+        <label data-bind="attr: { for: 'option_' + $index() }, text: option.label"></label>
+    </div>
+    <span ></span>
+    <div class="field tax_exempt_number hide required">
+        <form action=""  data-bind="submit: onSubmit" method="post" id="tax_exempt_form"  enctype="multipart/form-data">
+
+        <label class="label">
+            <span>Tax Exempt Number</span>
+        </label>
+        <div class="control">
+            <input type="text" data-validate="{required:true}" class="input-text required" id="tax_exempt_number"
+                   name="tax_exempt_number" value="">
+        </div>
+        <div class="mage-error tax_exempt_number" style="display: none;">This field is required</div>
+        <label class="label">
+            <span>Tax Exempt File</span>
+        </label>
+        <div class="control">
+            <input type="file" data-validate="{required:true}" class="input-file required" id="tax_exempt_file"
+                   name="tax_exempt_file"/>
+        </div>
+        <div class="mage-error tax_exempt_file" style="display: none;">This field is required</div>
+            <button type="submit" class="action">
+                <span data-bind="i18n: 'Save'"></span>
+            </button>
+        </form>
+        <div class="mage-error" id="tax_error" style="display: none;"></div>
+    </div>
+
+
+<hr>
+
+<!--/ko-->

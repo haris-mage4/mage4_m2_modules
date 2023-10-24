@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+   <menu>
+       <add id="Baytonia_OutOfStockFix::alerts"
+           title="Stock Alerts" module="Baytonia_OutOfStockFix"
+           sortOrder="10"
+           action="outofstockfix/grid/alert"
+           parent="Magento_Catalog::catalog"
+           resource="Magento_Catalog::products"
+           />
+   </menu>
+</config>

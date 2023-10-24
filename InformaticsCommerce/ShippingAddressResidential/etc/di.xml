@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="res_extension_attribute"
+                type="InformaticsCommerce\ShippingAddressResidential\Plugin\Checkout\Model\ShippingInformationManagementPlugin"
+                sortOrder="1" />
+    </type>
+    <preference for="Magento\Sales\Model\Order\Pdf\AbstractPdf" type="InformaticsCommerce\ShippingAddressResidential\Model\Order\Pdf\PrintPdf" />
+    <preference for="Magento\Sales\Model\Order\Pdf\Invoice" type="InformaticsCommerce\ShippingAddressResidential\Model\Order\Pdf\PrintInvoice" />
+    <preference for="Magento\Sales\Model\Order\Pdf\Shipment" type="InformaticsCommerce\ShippingAddressResidential\Model\Order\Pdf\PrintShipment" />
+</config>
+

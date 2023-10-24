@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="disable_non_saleable_products" type="Baytonia\OutOfStockFix\Plugin\ProductAvailability" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\ProductAlert\Block\Product\View\Stock">
+        <plugin name="change_notification_for_guests" type="Baytonia\OutOfStockFix\Plugin\NotifyStockAlert" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Alerts">
+    <plugin name="grid_alert_inject" type="Baytonia\OutOfStockFix\Plugin\InjectAlertGrid" />    
+    </type>
+</config>

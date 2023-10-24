@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Copyright (c)  Mage4  2021.
+  -->
+
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info">
+            <action method='setTemplate'>
+                <argument name='template' xsi:type='string'>Mage4_AdvanceMatrixPricing::product/view/form.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.options.select">
+            <action method='setTemplate'>
+                <argument name='template' xsi:type='string'>Mage4_AdvanceMatrixPricing::product/view/options/type/select.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

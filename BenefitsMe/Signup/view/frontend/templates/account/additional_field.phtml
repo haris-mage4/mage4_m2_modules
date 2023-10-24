@@ -1,0 +1,80 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+$customer = $customerSession->getCustomer();
+$data = $customer->getData();
+
+$balanceCollection = $objectManager->get('Magento\CustomerBalance\Model\BalanceFactory');
+$model = $balanceCollection->create();
+$model->setCustomerId($customer->getId())->loadByCustomer();
+$data['available_credit'] = "$".number_format($model->getAmount());
+
+
+if(!array_key_exists("pay_frequency", $data)) {
+    $data['pay_frequency'] = "";
+}
+
+$data['credit_limit'] = "$".number_format($customer->getCreditLimit());
+
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$currentStore = $storeManager->getStore();
+$storeName = $currentStore->getName();
+?>
+
+<style>
+input[readonly] {
+    background-color: #dddddd;
+}
+#assistance_allowed_checkbox {
+    display: none !important;
+}
+</style>
+
+
+    <legend class="legend"><span>Employer Information</span></legend><br>
+    <p>
+    <i>Please contact Customer Support to initiate changes to the fields below</i>
+    </p>
+    <div class="field">
+        <label class="label" for="employer_name"><span>Employer Name</span></label>
+            <div class="control">
+                <input type="text" id="employer_name" name="employee_name" value="<?php echo $storeName; ?>" title="First Name" class="input-text" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="employee_id"><span>Employee ID</span></label>
+            <div class="control">
+                <input type="text" id="employee_id" name="employee_id" value="<?php echo $data['employee_id']; ?>" title="Employee ID" class="input-text" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="credit_limit"><span>Credit Limit</span></label>
+            <div class="control">
+                <input type="text" id="credit_limit" name="credit_limit" value="<?php echo $data['credit_limit']; ?>" title="Credit Limit" class="input-text" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="available_credit"><span>Available Credit</span></label>
+            <div class="control">
+                <input type="text" id="available_credit" name="available_credit" value="<?php echo $data['available_credit']; ?>" title="Available Credit" class="input-text" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="dob"><span>Date of Birth</span></label>
+            <div class="control">
+                <input type="text" id="dob" name="dob" value="<?php echo $data['dob']; ?>" title="DOB" class="input-text" readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="ssn"><span>SSN or ITIN</span></label>
+            <div class="control">
+                <input type="text" id="ssn" name="ssn_itin" value="<?php //echo $data['ssn_itin']; ?>" title="SSN" class="input-text"readonly>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label" for="pay_frequency"><span>Pay Frequency</span></label>
+            <div class="control">
+                <input type="text" id="pay_frequency" name="pay_frequency" value="<?php echo $data['pay_frequency']; ?>" title="Pay Frequency" class="input-text" readonly>
+            </div>
+        </div>
+ 

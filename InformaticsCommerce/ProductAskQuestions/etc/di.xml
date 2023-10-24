@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<!-- <type name="Dev\Grid\Ui\DataProvider\Category\ListingDataProvider">-->
+<!--   <plugin name="dev_grid_attributes" type="Dev\Grid\Plugin\AddAttributesToUiDataProvider"/> -->
+<!-- </type>-->
+ <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+  <arguments>
+   <argument name="collections" xsi:type="array">
+     <item name="inquiry_questions_listing_data_source" xsi:type="string">QuestionsCollection</item>
+   </argument>
+  </arguments>
+ </type>
+ <virtualType name="QuestionsCollection" type="InformaticsCommerce\ProductAskQuestions\Ui\DataProvider\Category\Listing\Collection">
+   <arguments>
+     <argument name="mainTable" xsi:type="string">ic_productquestions</argument>
+     <argument name="resourceModel" xsi:type="string">InformaticsCommerce\ProductAskQuestions\Model\ResourceModel\Question</argument>
+   </arguments>
+ </virtualType>
+</config>

@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="GET" url="/V1/baytoniareview/product/:param/:pagenumber">
+		<service class="Baytonia\ReviewAPI\Api\WebServicesManagementInterface" method="getProductReview"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    <route method="POST" url="/V1/baytoniareview/add">
+		<service class="Baytonia\ReviewAPI\Api\WebServicesManagementInterface" method="addProductReview"/>
+		<resources>
+			<resource ref="self"/>
+		</resources>
+	</route>
+    <route method="POST" url="/V1/baytoniavote/add">
+		<service class="Baytonia\ReviewAPI\Api\WebServicesManagementInterface" method="addReviewVote"/>
+		<resources>
+			<resource ref="self"/>
+		</resources>
+	</route>
+</routes>

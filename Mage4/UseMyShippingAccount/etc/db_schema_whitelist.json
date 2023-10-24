@@ -1,0 +1,28 @@
+{
+    "ic_shippingoptions_adminhtml": {
+        "column": {
+            "option_id": true,
+            "option_label": true,
+            "option_code": true,
+            "option_input_type": true,
+            "is_required": true,
+            "option_default_value": true,
+            "sort_order": true,
+            "apply_to": true,
+            "option_values": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "quote": {
+        "column": {
+            "selected_shippingoptions": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "selected_shippingoptions": true
+        }
+    }
+}

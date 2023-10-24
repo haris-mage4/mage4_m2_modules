@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mage4_Appointment::data" title="MAGE4" module="Mage4_Appointment" sortOrder="75" resource="Mage4_Appointment::data" action="appointment/data/index"/>
+    </menu>
+</config>

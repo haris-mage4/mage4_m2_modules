@@ -1,0 +1,31 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Request for quote" store_name=$store.frontend_name}} @-->
+<!--@vars {
+{{ var name}}
+{{ var email}}
+{{ var sku}}
+{{ var product_url}}
+{{ var grit_size2}}
+{{ var package_type2}}
+{{ var question}}
+{{ var qty}}
+} @-->
+{{template config_path="design/email/header_template"}}
+<h3>{{trans "Thanks for submitting quote:"}}</h3>
+<p class="greeting">{{trans "Name: %name1, " name1=$name}}</p>
+<p class="greeting">{{trans "Email: %name6, " name6=$email}}</p>
+<p class="greeting">{{trans "Sku: %name2, " name2=$sku}}</p>
+<p class="greeting">{{trans "Product url: %name7, " name7=$product_url}}</p>
+<p class="greeting">{{trans "Grit: %name3, " name3=$grit_size2}}</p>
+<p class="greeting">{{trans "Package: %name4, " name4=$package_type2}}</p>
+<p class="greeting">{{trans "Qty: %name5, " name5=$qty}}</p>
+
+
+{{layout handle="email_attribute_list"}}
+
+{{template config_path="design/email/footer_template"}}

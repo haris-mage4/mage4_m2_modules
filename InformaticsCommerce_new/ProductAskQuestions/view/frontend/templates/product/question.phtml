@@ -1,0 +1,176 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ */
+
+use Magento\Framework\App\ObjectManager;
+
+/**
+ * @var  \InformaticsCommerce\ProductAskQuestions\Helper\Data $helper
+ */
+
+$objectManager = ObjectManager::getInstance();
+$helper = $objectManager->get('InformaticsCommerce\ProductAskQuestions\Helper\Data');
+
+/**
+ * @var \Magento\Catalog\Model\Product $currentProduct
+ */
+$currentProduct = $helper->getCurrentProduct();
+$productTypeInstance = $objectManager->get('Magento\ConfigurableProduct\Model\Product\Type\Configurable');
+$productOptions = $productTypeInstance->getConfigurableAttributesAsArray($currentProduct);
+$mediaPath = $helper->getProductMediaPath();
+$image = $currentProduct->getData('image');
+if ($image) {
+    $prductImage = $mediaPath . $image;
+} else {
+    $prductImage = $helper->getImagePlaceHolder();
+}
+
+$productPrice = $helper->getFormattedPrice($currentProduct->getFinalPrice());
+?>
+<div id="button" class="prod-question">
+    <a href="#!"><span>Have a Question?</span></a>
+</div>
+
+<div id="modal" style="display: none;">
+    <div class="modal-body-content">
+        <form id="form-askquestion" action="" method="post">
+        <div class="product-info-wrapper">
+            <div class="product-content-title">
+                <div class="product-image">
+                    <img src="<?= $block->escapeHtml(__($prductImage)) ?>" alt="img">
+                </div>
+                <div class="product-heading">
+                    <?= $block->escapeHtml($currentProduct->getName()) ?>
+                </div>
+            </div>
+            <?php if($currentProduct->getTypeId() === 'simple'):  ?>
+            <div class="product-grit-size">
+                <?= $block->escapeHtml($helper->getAttributeValueBySku($currentProduct->getSku(),'grit_size')) ?>
+            </div>
+            <?php  endif; ?>
+            <div class="product-sku">
+                <span><?= $block->escapeHtml(__('SKU: ')) ?><?= $block->escapeHtml($currentProduct->getSku()) ?></span>
+            </div>
+            <div class="product-price">
+                <?= $block->escapeHtml($productPrice) ?>
+            </div>
+            <?php if($currentProduct->getTypeId() === 'simple'):  ?>
+            <div class="product-package">
+                <?= $block->escapeHtml($helper->getAttributeValueBySku($currentProduct->getSku(),'package_type')) ?>
+            </div>
+            <?php endif;  ?>
+            <?php if ($currentProduct->getTypeId() === 'configurable'): ?>
+                <?php foreach ($productOptions as $attributes): ?>
+                    <div class="field configurable required">
+                        <label class="label" for="attribute<?= __($attributes['attribute_id']) ?>">
+                            <span><?= __($attributes['label']) ?></span>
+                        </label>
+                        <div class="control">
+                            <select name="super_attribute_modal[<?= __($attributes['attribute_code']) ?>]"
+                                    data-selector="super_attribute_modal[<?= __($attributes['attribute_code']) ?>]"
+                                    data-validate="{required:true}" id="<?= $attributes['attribute_code'] ?>"
+                                    aria-required="true">
+
+                                <option value="">Choose an Option...</option>
+                               <?php foreach ($attributes['values'] as $option): ?>
+                                    <option
+                                        value="<?= __($option['value_index']) ?>"><?= __($option['label']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php  endif;  ?>
+
+        </div>
+        <div class="product-form">
+            <h2>Have a Question?</h2>
+
+                <input type="hidden" name="product_sku" value="<?= $block->escapeHtml($currentProduct->getSku()) ?>">
+                <div class="field required">
+                    <label for="customer-name" class="label">
+                        <div class="control">
+                            <input type="text" name="customername" id="customername" value=""
+                                   class="input-text required"
+                                   data-validate="{required:true}" placeholder="Your Name">
+                        </div>
+                    </label>
+                </div>
+                <div class="field required">
+                    <label for="email_address" class="label">
+                        <div class="control">
+                            <input type="email" name="email" id="emailaddress" value=""
+                                    class="input-text required"
+                                   data-validate="{required:true, 'validate-email':true}" placeholder="Email Address">
+                        </div>
+                    </label>
+                </div>
+                <div class="field required">
+                    <label for="phone-number" class="label">
+                        <div class="control">
+                            <input type="text" name="phonenumber" id="phonenumber" value=""
+                                   class="input-text required"
+                                   data-validate="{required:true, 'phoneUS':true}" placeholder="Phone Number">
+                        </div>
+                    </label>
+                </div>
+                <div class="field required">
+                    <label for="question" class="label">
+                        <div class="control">
+                            <textarea name="question" id="question" class="required" data-validate="{required:true}" placeholder="Your Question"></textarea>
+                        </div>
+                    </label>
+                </div>
+                <button class="action primary" type="submit" value="Submit">Submit</button>
+                <div class="loading-mask" data-role="loader" style="display: none;">
+                    <div class="loader">
+                        <!-- <img alt="<%- data.texts.imgAlt %>" src="<%- data.icon %>"> -->
+                        <!-- <p><%- data.texts.loaderText %></p> -->
+                    </div>
+                </div>
+
+        </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require([
+        "jquery",
+        "Magento_Ui/js/modal/modal"
+    ], function ($, modal) {
+
+
+    });
+</script>
+<script type="text/x-magento-init">
+       {
+    "#form-askquestion": {
+        "InformaticsCommerce_ProductAskQuestions/js/modal-question": {},
+         "validation": {}
+    }
+}
+
+</script>
+
+
+<script>
+    require(['jquery', 'loader', 'domReady!'], function ($) {
+        
+        $(document).ready(function(){
+            jQuery(document).on("click", "#form-askquestion .action.primary", function(){
+                'use strict';
+                $('.product-form').trigger('processStart');     
+                
+                setTimeout(() => {
+                    $(".product-form").trigger('processStop');
+                }, "5000");
+
+                
+            });
+        });       
+    });
+ 
+
+</script>

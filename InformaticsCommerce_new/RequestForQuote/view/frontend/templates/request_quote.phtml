@@ -1,0 +1,226 @@
+<?php
+
+/**
+ * @var \InformaticsCommerce\RequestForQuote\Block\Request\Quote\Product $block
+ */
+
+$name = $block->getCustomer()->getName();
+if ($name == ' '){
+    $name = '';
+}
+
+$email = $block->getCustomer()->getEmail();
+$shippingAddress = $block->getCustomer()->getPrimaryShippingAddress();
+$telephone = ($shippingAddress) ? $shippingAddress->getTelephone() : '';
+$email = ($shippingAddress) ? $shippingAddress->getCustomer()->getEmail() : '';
+$address = ($shippingAddress) ? $shippingAddress->getStreetFull() : '';
+$city = ($shippingAddress) ? $shippingAddress->getCity() : '';
+$state = ($shippingAddress) ? $shippingAddress->getRegion() : '';
+$zipcode = ($shippingAddress) ? $shippingAddress->getPostcode() : '';
+
+$currentProduct = $block->getProduct();
+$productOptions = $block->getConfigurableProduct($currentProduct);
+$mediaPath = $block->getProductMediaPath();
+$image = $currentProduct->getData('image');
+if ($image) {
+    $prductImage = $mediaPath . $image;
+} else {
+    $prductImage = $block->getImagePlaceHolder();
+}
+
+
+?>
+<div id="modal-quote" class="request-quote-popup" style="display: none;">
+    <div class="modal-body-content">
+        <form id="form-requestforquote" action="" method="post" data-mage-init='{"validation": {}}'>
+            <div class="product-info-wrapper">
+                <div class="product-content-title">
+                    <div class="product-image">
+                        <img src="<?= $block->escapeHtml(__($prductImage)) ?>" alt="img">
+                    </div>
+                    <div class="product-heading">
+                        <?= $block->escapeHtml($currentProduct->getName()) ?>
+                    </div>
+                </div>
+                <?php if ($currentProduct->getTypeId() === 'simple'): ?>
+                    <div class="product-grit-size">
+                        <?= $block->escapeHtml($block->getAttributeValueBySku($currentProduct->getSku(), 'grit_size')) ?>
+                    </div>
+                <?php endif; ?>
+                <div class="product-sku">
+                    <span><?= $block->escapeHtml(__('SKU: ')) ?><?= $block->escapeHtml($currentProduct->getSku()) ?></span>
+                </div>
+                <?php if ($currentProduct->getTypeId() === 'simple'): ?>
+                    <div class="product-package">
+                        <?= $block->escapeHtml($block->getAttributeValueBySku($currentProduct->getSku(), 'package_type')) ?>
+                    </div>
+                <?php endif; ?>
+                <?php if ($currentProduct->getTypeId() === 'configurable'): ?>
+                    <?php foreach ($productOptions as $attributes): ?>
+
+                        <div class="field configurable required">
+                            <?php if ($attributes['attribute_code'] !== 'package_type'): ?>
+                                <label class="label" for="attribute<?= __($attributes['attribute_id']) ?>">
+                                    <span><?= __($attributes['label']) ?></span>
+                                </label>
+                                <div class="control">
+                                    <select name="super_attribute_modal[<?= __($attributes['attribute_code']) ?>]"
+                                            data-selector="super_attribute_modal[<?= __($attributes['attribute_code']) ?>]"
+                                            data-validate="{required:true}" id="<?= $attributes['attribute_code'] ?>"
+                                            aria-required="true">
+
+                                        <option value="">Choose an Option...</option>
+                                        <?php foreach ($attributes['values'] as $option): ?>
+                                            <option
+                                                value="<?= __($option['label']) ?>"><?= __($option['label']) ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            <?php endif; ?>
+
+                        </div>
+
+
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+            </div>
+            <div class="product-form">
+                <h2>Order Details</h2>
+                <input type="hidden" name="product_sku" value="<?= $block->escapeHtml($currentProduct->getSku()) ?>">
+                <div class="field required">
+                    <label for="customer-name" class="label">
+                        <div class="control">
+                            <input type="text" name="customername" id="customername" value="<?=  __($name) ?>"
+                                   class="input-text required"
+                                   data-validate="{required:true}" placeholder="Your Name" />
+
+                        </div>
+                    </label>
+                </div>
+                <div class="field required">
+                    <label for="email_address" class="label">
+                        <div class="control">
+                            <input type="email" name="email" id="emailaddress" value="<?= __($email) ?>"
+                                   class="input-text required"
+                                   data-validate="{required:true, 'validate-email':true}" placeholder="Email Address" />
+                        </div>
+                    </label>
+                </div>
+                <div class="field required">
+                    <label for="phone-number" class="label">
+                        <div class="control">
+                            <input type="text" name="phonenumber" id="phonenumber" value="<?= __($telephone) ?>"
+                                   class="input-text required"
+                                   data-validate="{required:true, 'phoneUS':true}" placeholder="Phone Number" />
+                        </div>
+                    </label>
+                </div>
+                <div class="field required field-package_type">
+                    <div class="control">
+                        <label for="qty" class="label">Quantity</label>
+                        <input type="text" name="package_type" id="package_type" value=""
+                               class="input-text required"
+                               data-validate="{required:true, digits:true}" placeholder="Amount in LB" />
+                    </div>
+                </div>
+                <div class="field required">
+                    <label for="quotecomment" class="label">
+                        <div class="control">
+                            <label for="shipping" class="label">Shipping Address</label>
+                            <input type="text" name="address" id="address" value="<?=  __($address) ?>"
+                                   class="input-text required"
+                                   data-validate="{required:true}" placeholder="Addresses" />
+                            <input type="text" name="apparment" id="apartment" value=""
+                                   class="input-text required"
+                                   data-validate="{required:true}" placeholder="Apartment, Suite, etc." />
+                            <input type="text" name="city" id="city" value="<?=  __($city) ?>"
+                                   class="input-text required"
+                                   data-validate="{required:true}" placeholder="City" />
+                            <input type="text" name="state" id="state" value="<?=  __($state) ?>"
+                                   class="input-text required"
+                                   data-validate="{required:true}" placeholder="State" />
+                            <input type="text" name="zipcode" id="zipcode" value="<?=  __($zipcode) ?>"
+                                   class="input-text required"
+                                   data-validate="{required:true}" placeholder="Zip Code" />
+                        </div>
+                    </label>
+                </div>
+                <button class="action primary" type="submit" value="Submit">Submit</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal',
+            'mage/url',
+            'Magento_Customer/js/customer-data'
+        ],
+        function (
+            $,
+            modal,
+            url,
+            customerData
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                modalClass: 'request-popup'
+            };
+            modal(options, $('.request-quote-popup'));
+            var form = $('#form-requestforquote');
+            form.submit(function (e) {
+                e.preventDefault();
+                var formData = form.serializeArray();
+                var formObj = {};
+                $.each(formData, function (i, input) {
+                    formObj[input.name] = input.value;
+                });
+
+
+                var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+                var pattern2 = /^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/;
+                if (!pattern.test(formObj.email) || !pattern2.test(formObj.phonenumber) || formObj.email === "" || formObj.customername === "" || formObj.phonenumber === "" || formObj.question === "") {
+                    return;
+                }
+
+
+                $.ajax({
+                    type: "POST",
+                    url: url.build('request/quote/submit'),
+                    showLoader: false,
+                    data: formObj,
+                    success: function (response) {
+                        if (response.success) {
+                            $('#modal-quote').modal('closeModal');
+                            setTimeout(
+                                function () {
+                                    form.trigger("reset");
+                                    customerData.set('messages', {
+                                        messages: [
+                                            {
+                                                text: response.message,
+                                                type: 'success'
+                                            }
+                                        ]
+                                    });
+                                },
+                                5000
+                            );
+                        }
+                    },
+                    error: function (res) {
+                        console.log(res);
+                    }
+                });
+            });
+        }
+    );
+</script>

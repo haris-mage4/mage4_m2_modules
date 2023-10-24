@@ -1,0 +1,56 @@
+
+
+<div class="mini-cart-coupon-wrapper" >
+    <div class="block discount" id="block-discount-mini">
+        <div class="title" data-role="title">
+            <strong id="block-discount-heading-mini" role="heading" aria-level="2">Have a promo code?</strong>
+        </div>
+        <div class="content" data-role="content" id="block-discount-cartmini-content" aria-labelledby="block-discount-heading" data-bind="visible: shouldVisible()" >
+            <div class="coupon-inner">
+                <h3 class="c-cart-discount__title title_h6" data-role="title">Discount Codes</h3>
+                <button class="c-cart-discount__close">
+                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.30168 20.6934C3.89944 20.2847 3.89944 19.6219 4.30168 19.2132L18.9705 4.30657C19.3727 3.89781 20.0249 3.89781 20.4271 4.30657C20.8294 4.71533 20.8294 5.37806 20.4271 5.78682L5.75832 20.6934C5.35608 21.1022 4.70392 21.1022 4.30168 20.6934Z"></path>
+                        <path d="M20.6983 20.6934C21.1006 20.2847 21.1006 19.6219 20.6983 19.2132L6.02949 4.30657C5.62725 3.89781 4.97509 3.89781 4.57285 4.30657C4.17062 4.71533 4.17062 5.37806 4.57285 5.78682L19.2417 20.6934C19.6439 21.1022 20.2961 21.1022 20.6983 20.6934Z"></path>
+                    </svg>
+                </button>
+            </div>
+        <form class="cart-discount" id="slidingcart-coupon-form" method="post">
+            <div role="alert" class="message message-error error" data-bind="visible: errorMsg">
+                <div data-bind="text: errorMsg"></div>
+            </div>
+            <div role="alert" class="message message-success success" data-bind="visible: successMsg">
+                <div data-bind="text: successMsg"></div>
+            </div>
+            <div class="fieldset coupon">
+                <input type="hidden" name="form_key" data-bind="value: formKey" />
+                <div class="field">
+                    <label for="slidingcart-coupon-code" class="label"></label>
+                    <div class="control">
+                        <input class="input-text"
+                               type="text"
+                               id="slidingcart-coupon-code"
+                               name="coupon_code"
+                               data-bind="value: couponCode(), attr: {disabled:isApplied(), placeholder: $t('Enter coupon code')} " />
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <!-- ko ifnot: isApplied() -->
+                        <button class="action action-apply" type="button" data-bind="value: $t('Apply Coupon'), click: apply">
+                            <span><!-- ko i18n: 'Apply Coupon'--><!-- /ko --></span>
+                        </button>
+                        <!-- /ko -->
+                        <!-- ko if: isApplied() -->
+                        <input type="hidden" name="remove" id="remove-coupon" value="1"/>
+                        <button class="action action-cancel" type="button" data-bind="value: $t('Cancel Coupon'), click: cancel">
+                            <span><!-- ko i18n: 'Cancel Coupon'--><!-- /ko --></span>
+                        </button>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+{
+    "name": "benefitsme/module-login",
+    "description": "aasdf",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Brad Stahl",
+            "email": "Bradley.Stahl@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "BenefitsMe\\Login\\": ""
+        }
+    }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!-- <type name="Magento\Framework\Module\ModuleList\Loader">
+		<plugin disabled="false" name="Baytonia_Extendedconnector_Plugin_Magento_Framework_Module_ModuleList_Loader" sortOrder="10" type="Baytonia\Extendedconnector\Plugin\Magento\Framework\Module\ModuleList\Loader"/>
+	</type> -->
+	<type name="Webkul\Odoomagentoconnect\Model\ResourceModel\Order">
+		<plugin name="Baytonia_Extendedconnector_Plugin_Webkul_Odoomagentoconnect_Model_ResourceModel_Order" sortOrder="10" type="Baytonia\Extendedconnector\Plugin\Webkul\Odoomagentoconnect\Model\ResourceModel\Order"/>
+	</type>
+</config>

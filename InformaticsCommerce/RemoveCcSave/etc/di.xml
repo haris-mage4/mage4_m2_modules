@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<config>
+    <preference for="ParadoxLabs\Authnetcim\Model\ConfigProvider" type="InformaticsCommerce\RemoveCcSave\Model\OverrideConfigProvider" />
+</config>

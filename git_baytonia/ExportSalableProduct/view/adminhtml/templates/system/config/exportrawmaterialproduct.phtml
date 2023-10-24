@@ -1,0 +1,51 @@
+<script>
+    require([
+        'jquery',
+        'prototype',
+    ], function ($) {
+        function exportRawMaterialProducts() {
+            params = {};
+            new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+                loaderArea: true,
+                asynchronous: true,
+                parameters: params,
+                onSuccess: function (response) {
+                    $('#messages-rawmaterial .message-success span.message-text').text('File Exported Successfully');
+                    $('#messages-rawmaterial .message-success').show();
+                    $('#messages-rawmaterial .message-success').delay(8000).fadeOut();
+                },
+                onFailure: function() {               
+                    $('#messages-rawmaterial .message-error span.message-text').text('There has been error processing your request');
+                    $('#messages-rawmaterial .message-error').show();
+                    $('#messages-rawmaterial .message-error').delay(8000).fadeOut();
+                    return false;
+                },
+                onComplete: function() {               
+                    $('#messages-rawmaterial .message-success span.message-text').text('File Exported Successfully');
+                    $('#messages-rawmaterial .message-success').show();
+                    $('#messages-rawmaterial .message-success').delay(8000).fadeOut();
+                }
+            });
+        }
+        $('#exportbtnrawmaterial').click(function () {
+            exportRawMaterialProducts();
+        });
+    });
+</script>
+
+<?php echo $block->getButtonHtml() ?>
+ 
+<div id="messages-rawmaterial" >
+    <div class="messages">
+        <div class="message message-success success" style="display: none;">
+            <div data-ui-id="messages-message-success">
+                <span class="message-text"></span>
+            </div>
+        </div>
+        <div class="message message-error error" style="display: none;">
+            <div data-ui-id="messages-message-error">
+                <span class="message-text"></span>
+            </div>
+        </div>
+    </div>
+</div>

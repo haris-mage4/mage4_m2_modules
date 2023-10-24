@@ -1,0 +1,42 @@
+<div class="block block-dashboard-info">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Employee Information')) ?></strong></div>
+    <div class="block-content">
+        <div class="box box-information">
+            <div class="box-content">
+                <p>
+                    <b>Employee ID:</b> <?= $block->escapeHtml($block->getCustomer()->getCustomAttribute("employee_id")->getValue()) ?><br>
+                    <?php /*
+                    <b>Date of Hire:</b>
+                    <?php
+                    //$datetime = new \DateTime($block->getCustomer()->getCustomAttribute("date_of_hire")->getValue());
+                    //echo $block->escapeHtml($datetime->format('m/d/Y'))
+                    ?><br>
+                    <?php /*if(!is_null($block->getCustomer()->getCustomAttribute("job_title"))): ?>
+                        <b>Job Title:</b> <?= $block->escapeHtml($block->getCustomer()->getCustomAttribute("job_title")->getValue()) ?><br>
+                    <?php endif; ?>
+                    <?php /*
+                     <?php if(!is_null($block->getCustomer()->getCustomAttribute("employment_status"))): ?>
+                        <b>Employment Status:</b> <?= $block->escapeHtml($block->getCustomer()->getCustomAttribute("employment_status")->getValue()) ?><br>
+                    <?php endif; ?>
+                     <?php if(!is_null($block->getCustomer()->getCustomAttribute("pay_frequency"))): ?>
+                        <b>Pay Frequency:</b> <?= $block->escapeHtml($block->getCustomer()->getCustomAttribute("pay_frequency")->getValue()) ?><br>
+                    <?php endif; ?>
+                     <?php if(!is_null($block->getCustomer()->getCustomAttribute("pay_type"))): ?>
+                        <b>Pay Type:</b> <?= $block->escapeHtml($block->getCustomer()->getCustomAttribute("pay_type")->getValue()) ?><br>
+                    <?php endif; ?>
+                    */ ?>
+                </p>
+            </div>
+            <?php /*
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>">
+                    <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                </a>
+                <a href="<?= $block->escapeUrl($block->getChangePasswordUrl()) ?>" class="action change-password">
+                    <?= $block->escapeHtml(__('Change Password')) ?>
+                </a>
+            </div>
+            */ ?>
+        </div>
+    </div>
+</div>

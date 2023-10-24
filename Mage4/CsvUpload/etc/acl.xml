@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Mage4_CsvUpload::Csv" sortOrder="10" title="Csv">
+                </resource>
+                <resource id="Mage4_CsvUpload::Mage4_csvupload" sortOrder="10" title="Mage4 csvupload">
+                    <resource id="Mage4_CsvUpload::index_submit" sortOrder="10" title="index submit"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

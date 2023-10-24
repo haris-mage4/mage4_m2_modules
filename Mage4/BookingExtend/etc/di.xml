@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Mage4. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Module/etc/module.xsd">
+    <preference for="Magetop\Bookstandard\Helper\BookOptions" type="Mage4\BookingExtend\Helper\BookOptions" />
+    <preference for="Magetop\Bookstandard\Helper\StandardPrice" type="Mage4\BookingExtend\Helper\StandardPrice" />
+</config>

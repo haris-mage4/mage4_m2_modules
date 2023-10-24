@@ -1,0 +1,4 @@
+<?xml version="1.0" ?>
+<config>
+    <preference for="Magento\Contact\Model\Mail" type="InformaticsCommerce\ContactUsCc\Model\Mail" />
+</config>

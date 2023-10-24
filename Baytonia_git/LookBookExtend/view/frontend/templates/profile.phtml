@@ -1,0 +1,119 @@
+<?php
+$compareProductHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);
+$coreHelper       	  = $this->helper(Magezon\Core\Helper\Data::class);
+$dataHelper       	  = $this->helper(Magezon\LookBook\Helper\Data::class);
+$layoutType      	  = $this->getLayoutType();
+$profile 			  = $this->getProfile();
+$markerWidth	 	  = $dataHelper->getMarkerWidth();
+$markerIcon		      = $dataHelper->getMarkerIcon();
+$btnAddAllProduct 	  = $dataHelper->getButtonAddAll();
+$btnTitle 			  = $dataHelper->getButtonTitle();
+$markerType           = $dataHelper->getMarkerType();
+$markerImage          = $dataHelper->getMarkerImage();
+$markers 		      = $coreHelper->unserialize($profile->getMarker());
+
+if ($markerType == 'icon') $markerImage = "";
+$iconSpan = '<i class="' . $markerIcon . '"></i>';
+if ($markerType == 'image') $iconSpan = "";
+$classSpan = ($layoutType == 'type2') ? "lookbook-marker lookbook-btn-quick-view" : "lookbook-marker lookbook-btn-popup";
+?>
+<?php if ($layoutType == 'type2' ) { ?>
+	<div class="lookbook-loading">
+		<img src="<?= $dataHelper->getImageLoading() ?>" alt="">
+	</div>
+<?php } ?>
+<div class="lookbook-profile" data-mage-init='{"Magezon_LookBook/js/profile":{"markerWidth": <?= $markerWidth ?>, "markerImage": "<?= $markerImage ?>", "addToCartUrl": "<?= $this->getUrl('lookbook/index/addtocart') ?>", "layoutType": "<?= $layoutType ?>"}}'>
+	<div class="lookbook-profile-content">
+		<div class="overlay"></div>
+		<div class="lookbook-profile-image">
+			<img src="<?= $profile->getImageUrl() ?>" alt="<?= $block->escapeHtml($profile->getTitle()) ?>">
+		</div>
+		<div class="lookbook-marker">
+			<?php foreach ($markers as $marker) { ?>
+				<?php $classSpan .= ($marker['marker_label']) ? " lookbook-marker-label" : ""; ?>
+				<?php if ($marker['sku']) { ?>
+					<?php if ($product = $profile->getMakerProductCollection()->getItemByColumnValue('sku', $marker['sku'])) { ?>
+			    		<div class="lookbook-profile-marker lookbook-profile-marker<?= $product->getId() ?>" data-id="<?= $product->getId() ?>" data-sku="<?= $marker['sku'] ?>" data-left="<?= $marker['left'] ?>" data-top="<?= $marker['top'] ?>">
+			    			<span class="<?= $classSpan ?>" data-id="<?= $product->getId() ?>" data-url="<?= $product->getProductUrl() ?>" data-type="<?= $product->getTypeId() ?>"><?= $marker['marker_label'] ?: $iconSpan ?></span>
+			    			<div class="lookbook-profile-marker-title">
+			    				<h3><?= $marker['title'] ?: $product->getName() ?></h3>
+			    			</div>
+			    			<div class="lookbook-profile-product lookbook-profile-product-popup-<?= $marker['popup'] ?> product-item">
+			    				<?= $block->getImage($product, 'category_page_grid')->toHtml() ?>
+			    				<h3><?= $product->getName() ?></h3>
+			    				<?= $this->getProductPrice($product) ?>
+		    					<div class="lookbook-btn-product">
+		    						<form data-role="tocart-form" action="<?= $block->escapeUrl($compareProductHelper->getAddToCartUrl($product)) ?>" method="post">
+		                                <button type="submit" class="action tocart primary lookbook-btn-tocart">
+		                                    <span><?= __('Add to Cart') ?></span>
+		                                </button>
+		                            </form>
+		    						<a class="lookbook-btn-detail" href="<?= $product->getProductUrl() ?>" target="blank"><?= __('Details') ?></a>
+		    					</div>
+			    			</div>
+			    		</div>
+		    		<?php } ?>
+	    		<?php } else if ($marker['description']) { ?>
+					<?php $idRand = '-lb' . rand(); ?>
+					<div class="lookbook-profile-marker lookbook-profile-marker<?= $idRand ?>" data-left="<?= $marker['left'] ?>" data-top="<?= $marker['top'] ?>">
+	    				<span class="lookbook-marker lookbook-btn-popup<?= ($marker['marker_label']) ? ' lookbook-marker-label' : '' ?>" data-id="<?= $idRand ?>" data-url=""><?= $marker['marker_label'] ?: $iconSpan ?></span>
+		    			<div class="lookbook-profile-marker-title">
+		    				<h3><?= $marker['title'] ?></h3>
+		    			</div>
+						<div class="lookbook-profile-product lookbook-profile-product-popup-<?= $marker['popup'] ?> lookbook-profile-not-product">
+							<div class="lookbook-profile-marker-desc">
+								<p><?= $marker['description'] ?></p>
+							</div>
+						</div>
+					</div>
+				<?php } ?>
+	    	<?php } ?>
+		</div>
+	</div>
+
+	<?php if ($layoutType == 'carousel') { ?>
+		<div class="lookbook-profile-url"><a href="<?= $profile->getUrl() ?>"><?= $profile->getTitle() ?></a></div>
+	<?php } ?>
+
+	<?php if ($layoutType == 'type2') { ?>
+		<div class="lookbook-profile-products">
+			<?php foreach ($markers as $marker) { ?>
+				<?php if ($marker['sku']) { ?>
+					<?php if ($product = $profile->getMakerProductCollection()->getItemByColumnValue('sku', $marker['sku'])) { ?>
+		    			<div class="lookbook-product lookbook-product<?= $product->getId() ?>" data-id="<?= $product->getId() ?>" data-name="<?= $product->getName() ?>" data-type="<?= $product->getTypeId() ?>">
+		    				<div class="lookbook-profile-product-image">
+		    					<?= $block->getImage($product, 'new_products_images_only_widget')->toHtml() ?>
+		    				</div>
+		    				<div class="lookbook-profile-product-content product-item">
+		    					<a class="lookbook-profile-title" href="<?= $product->getProductUrl() ?>" target="blank">
+		    						<h3><?= $product->getName() ?></h3>
+		    					</a>
+			    				<?= $block->getProductPrice($product) ?>
+			    				<?php if ($description = $profile->getShortDescriptionProduct($product->getDescription())) { ?>
+				                    <!--<div class="lookbook-profile-product-desc">
+				                        <?= $coreHelper->filter($description) ?>
+				                    </div>-->
+				                <?php } ?>
+		    					<div class="lookbook-btn-product">
+		    						<form data-role="tocart-form" action="<?= $block->escapeUrl($compareProductHelper->getAddToCartUrl($product)) ?>" method="post">
+		    							<textarea class="options" name="options"></textarea>
+		    							<div class="item-options-wrapper"></div>
+		                                <button type="submit" class="action tocart primary lookbook-btn-tocart">
+		                                    <span><?= __('Add to Cart') ?></span>
+		                                </button>
+		                            </form>
+		                            <a href="#" class="lookbook-btn-quick-view" data-id="<?= $product->getId() ?>" data-url="<?= $product->getProductUrl() ?>" data-type="<?= $product->getTypeId() ?>"><?= __('Quick View') ?></a>
+		    					</div>
+		    				</div>
+		    			</div>
+	    			<?php } ?>
+				<?php } ?>
+			<?php } ?>
+			<?php if ($btnAddAllProduct) { ?>
+				<div class="add-all-to-cart">
+			        <button class="button lookbook-ajax-all-prt btn btn-primary"><?= $btnTitle ?></button>
+			    </div>
+			<?php } ?>
+		</div>
+	<?php } ?>
+</div>

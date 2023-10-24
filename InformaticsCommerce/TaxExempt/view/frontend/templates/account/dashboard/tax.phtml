@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \InformaticsCommerce\TaxExempt\Block\Account\Dashboard\Address\TaxExemptBlock $block */
+?>
+<?php  if ($block->isCustomerTaxExempt()): ?>
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Tax')) ?></strong>
+    </div>
+    <div class="block-content">
+        <div class="box box-tax-exempt-number">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Tax Exempt Number')) ?></span>
+            </strong>
+            <div class="box-content">
+<span class="bold"><?= $block->escapeHtml($block->getCustomerTaxExempt()) ?></span>
+            </div>
+        </div>
+<!--        <div class="box box-tax-document">-->
+<!--            <strong class="box-title">-->
+<!--                <span>--><?php //= $block->escapeHtml(__('Tax Exempt Document')) ?><!--</span>-->
+<!--            </strong>-->
+<!--            <form id="save_tax_file" action="--><?php //= $block->getUrl('tax/taxexempt/document') ?><!--" method="post"  enctype="multipart/form-data">-->
+<!--                <div class="box-content">-->
+<!--                    <div class="control">-->
+<!--                        <input type="file" name="tax_file" id="tax_file">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="box-actions">-->
+<!--                    <button class="primary action" type="submit">Save</button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+    </div>
+</div>
+<?php endif; ?>

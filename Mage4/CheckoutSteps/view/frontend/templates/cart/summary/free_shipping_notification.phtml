@@ -1,0 +1,23 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$cart = $objectManager->get('\Magento\Checkout\Model\Cart');
+$subTotal = $cart->getQuote()->getSubtotal();
+
+?>
+
+<div class="minicart_shipping">
+    <div class="icon">
+        <img src="<?php echo $block->getUrl("pub/media/wysiwyg/")?>free_van_icon.png"/>
+    </div>
+    <div class="shipping-detail">
+        <p>FREE Shipping Over $200</p>
+        <?php if ($subTotal >= 200) {
+            echo "<p>You qualified for <span>Free Shipping!</span></p>";
+        } else {
+            $toGoAmount = (200 - $subTotal);
+
+            echo "<p><span>". round($toGoAmount, 2) ."</span> to go for Free Shipping</p>";
+        } ?>
+    </div>
+</div>

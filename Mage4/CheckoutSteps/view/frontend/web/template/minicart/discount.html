@@ -1,0 +1,11 @@
+<!-- ko if: cart().is_coupon_applied -->
+<div class="grand-total">
+    <span class="label">
+        <!-- ko i18n: 'Discount' -->
+        <!-- /ko -->
+    </span>
+    <div class="amount price-container">
+        <span class="price-wrapper" data-bind="html: cart().discountAmount"></span>
+    </div>
+</div>
+<!-- /ko -->

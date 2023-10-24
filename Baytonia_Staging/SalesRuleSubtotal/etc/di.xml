@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\SalesRule\Model\Rule\Metadata\ValueProvider">
+        <plugin name="Baytonia_SalesRuleSubtotal::SalesRule_ValueProvider" type="Baytonia\SalesRuleSubtotal\Plugin\ValueProvider" />
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Action\Discount\CalculatorFactory">
+        <arguments>
+            <argument name="discountRules" xsi:type="array">
+                <item name="by_percent_subtotal" xsi:type="string">Baytonia\SalesRuleSubtotal\Model\Rule\Action\Bypercentsubtotal</item>
+            </argument>
+        </arguments>
+    </type>
+    <type  name="Mexbs\ApBase\Block\Adminhtml\Promo\Quote\Action\Details">
+       <plugin name="template_of_promo_action_details" sortOrder="1" disabled="false" type="Baytonia\SalesRuleSubtotal\Block\Adminhtml\Promo\Quote\Action\Details"/>
+    </type>
+    <preference for="Magento\SalesRule\Model\Rule\Action\Discount\ByPercent" type="Baytonia\SalesRuleSubtotal\Model\Rule\Action\Discount\ByPercent" />
+</config>

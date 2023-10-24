@@ -1,0 +1,47 @@
+<?php 
+
+use Magento\Framework\App\Action\Action;
+$product = $block->getTemplateProduct();
+$type = 'widget-product-grid';
+?>
+    <article class="c-product-card">
+        <?php if ($product->getPrice() > 200) { ?>
+        <ul class="c-product-card__label-list c-product-card__label-list_all">
+            <li class="c-product-card__label c-product-card__label_free">FREE Shipping</li>
+        </ul>
+        <?php } ?>
+        <a href="<?= $block->escapeUrl($block->getProductUrl($product)) ?>" class="product photo slider-product-item-photo">
+            <?= $block->getImage($product, 'category_page_grid')->toHtml(); ?>
+        </a>
+        <div class="product details slider-product-item-details">
+            <strong class="product name product-item-name">
+                <a title="<?= $block->escapeHtml($product->getName()) ?>"
+                    href="<?= $block->escapeUrl($block->getProductUrl($product)) ?>">
+                    <?= $block->escapeHtml($product->getName()) ?>
+                </a>
+            </strong>
+        </div>
+        <?=$block->getProductPrice($product) ?>
+        <div class="product actions slider-product-item-actions product-item-actions">
+            <div class="actions-primary">
+                <?php if ($product->isSaleable()): ?>
+                    <?php $postParams = $block->getAddToCartPostParams($product); ?>
+                    <form data-role="tocart-form" data-product-sku="<?= $block->escapeHtml($product->getSku()) ?>" action="<?= /* @NoEscape */ $postParams['action'] ?>" method="post">
+                        <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $postParams['data']['product'] ?>">
+                        <input type="hidden" name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                        <?= $block->getBlockHtml('formkey') ?>
+                        <button type="submit"
+                                title="<?= $block->escapeHtml(__('Buy Now')) ?>"
+                                class="action tocart primary">
+                            <span><?= /** @noEscape */ __('Buy Now') ?></span>
+                        </button>
+                    </form>
+                <?php else: ?>
+                        <div class="stock unavailable"><span><?= $block->escapeHtml(__('Sold Out')) ?></span></div>
+                <?php endif; ?>
+            </div>
+            
+        </div>
+    </article>
+
+

@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="GET" url="/V1/baytonia/search/:param">
+		<service class="Baytonia\CustomApis\Api\WebServicesManagementInterface" method="getSearchQuery"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    <route method="GET" url="/V1/baytonia/searchresults/:param/:pagenumber">
+		<service class="Baytonia\CustomApis\Api\WebServicesManagementInterface" method="getSearchResults"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    <route method="GET" url="/V1/baytonia/subcategories/:categoryid">
+		<service class="Baytonia\CustomApis\Api\WebServicesManagementInterface" method="getSubCategories"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    <route url="/V1/awRafAdvocate/getReferralData" method="GET">
+        <service class="Baytonia\CustomApis\Api\WebServicesManagementInterface" method="getReferralData"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/baytoniahome/settings" method="GET">
+        <service class="Baytonia\CustomApis\Api\HomePageServicesInterface" method="getSettingsData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytoniahome/categories" method="GET">
+        <service class="Baytonia\CustomApis\Api\HomePageServicesInterface" method="getCategoriesData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytoniahome/blocks" method="GET">
+        <service class="Baytonia\CustomApis\Api\HomePageServicesInterface" method="getBlocksData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytoniahome/full" method="GET">
+        <service class="Baytonia\CustomApis\Api\HomePageServicesInterface" method="getFullData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route method="GET" url="/V1/baytoniasorting/bycategory/:storeId/:categoryid">
+		<service class="Baytonia\CustomApis\Api\CategoryManagementInterface" method="getProductSorting"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    <route url="/V1/baytonia/menu" method="GET">
+        <service class="Baytonia\CustomApis\Api\MenuServicesInterface" method="getMenuData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytonia/lookbook/categories" method="GET">
+        <service class="Baytonia\CustomApis\Api\LookBookManagementInterface" method="getLookBookCategories"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytonia/lookbook" method="GET">
+        <service class="Baytonia\CustomApis\Api\LookBookManagementInterface" method="getLookBookData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytonia/lookbook/profile/:profileid" method="GET">
+        <service class="Baytonia\CustomApis\Api\LookBookManagementInterface" method="getLookBookProfile"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytonia/lookbook/category/:categoryid" method="GET">
+        <service class="Baytonia\CustomApis\Api\LookBookManagementInterface" method="getLookBookCategory"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytonia/cms/page/:pageid" method="GET">
+        <service class="Baytonia\CustomApis\Api\CMSManagementInterface" method="getCMSpages"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytonia/product/options/:productid" method="GET">
+        <service class="Baytonia\CustomApis\Api\ProductManagementInterface" method="getConfigurableProductOptions"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route method="POST" url="/V1/baytonia/options/add">
+		<service class="Baytonia\CustomApis\Api\ProductManagementInterface" method="addProductOptions"/>
+		<resources>
+			<resource ref="self"/>
+		</resources>
+	</route>
+    <route url="/V1/baytonia/product/page" method="GET">
+        <service class="Baytonia\CustomApis\Api\ProductManagementInterface" method="getProductPageDetails"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytonia/category/page" method="GET">
+        <service class="Baytonia\CustomApis\Api\CategoryManagementInterface" method="getCategoryPageDetails"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/baytonia/category/sortingdata/:categoryid" method="GET">
+        <service class="Baytonia\CustomApis\Api\CategoryManagementInterface" method="getCategoryLayerData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

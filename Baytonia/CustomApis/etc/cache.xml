@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="apppages" translate="label,description" instance="Baytonia\CustomApis\Model\Cache\Type">
+        <label>App Cache</label>
+        <description>APIs cache by psoldev5@gmail</description>
+    </type>
+</config>

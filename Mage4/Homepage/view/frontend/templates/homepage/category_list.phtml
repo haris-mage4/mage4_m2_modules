@@ -1,0 +1,13 @@
+<div class="category-list-items">    
+    <?php foreach($block->categories() as $category){ ?>
+        <h5 class="s-sidebar__item-title"><?=$category->getName()?></h5>
+        <ul class="s-sidebar__item-list">
+        <?php
+        foreach($block->categoryProducts($category) as $product) { ?>
+            <li class="s-sidebar__item-element"><a title="ace-031" href="<?=$product->getProductUrl()?>"><?=$product->getName()?></a></li>
+        <?php
+            
+        } ?>
+        </ul>
+    <?php } ?>
+</div>

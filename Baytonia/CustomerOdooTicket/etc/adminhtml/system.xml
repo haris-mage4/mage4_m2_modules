@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <section id="submit_ticket" translate="label" type="text" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="10">
+            <class>separator-top</class>
+            <label>Odoo Submit Ticket</label>
+            <tab>rtlsol</tab>
+            <resource>RTLSOL_Tag::config_ticket</resource>
+            <group id="general_settings" translate="label" type="text" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="0">
+                <label>General Settings</label>
+                <field id="enabled" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="10">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="url" translate="label comment" type="text" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="20">
+                    <label>Url</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

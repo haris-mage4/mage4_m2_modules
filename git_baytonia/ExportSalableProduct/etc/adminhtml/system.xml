@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+<system>
+    <tab id="baytonia_export" translate="label" sortOrder="86">
+        <label><![CDATA[Baytonia]]></label>
+    </tab>
+    <section id="exportproduct" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Export SalableProduct</label>
+        <tab>baytonia_export</tab>
+        <resource>Baytonia_ExportSalableProduct::config</resource>
+        <group id="scheduler_export_product" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Export Products</label>
+            <field id="export_all_product" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Export All Products</label>
+                <frontend_model>Baytonia\ExportSalableProduct\Block\System\Config\Exportproduct</frontend_model>
+                <comment><![CDATA[*Above action will export all products]]></comment>
+            </field>
+            <field id="export_salable_ordered_product" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Export Salable Ordered Products</label>
+                <frontend_model>Baytonia\ExportSalableProduct\Block\System\Config\ExportSalableOrderedproduct</frontend_model>
+                <comment><![CDATA[*Above action will export salable ordered products]]></comment>
+            </field>
+        </group>
+        <group id="create_shipment_export" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Create Order Shipment</label>
+            <field id="increment_id_from" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Order IncrementId From</label>
+                    <comment>Enter the order incrementid start from</comment>
+            </field>
+            <field id="increment_id_to" translate="label comment" type="text" sortOrder="11" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Order IncrementId To</label>
+                    <comment>Enter the order incrementid end at</comment>
+            </field>
+            <field id="create_shipment" translate="label comment" type="button" sortOrder="12" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Create Shipment</label>
+                <frontend_model>Baytonia\ExportSalableProduct\Block\System\Config\CreateShipment</frontend_model>
+                <comment><![CDATA[*Above action will create the shipment based on the range. Save the config after entering the Increment Id's]]></comment>
+            </field>
+        </group>
+        <group id="export_product_without_swatch" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Export all products where color is assigned but swatch is null</label>
+            <field id="export_all_product" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Export Null Swatch Products</label>
+                <frontend_model>Baytonia\ExportSalableProduct\Block\System\Config\ExportNullSwatchproduct</frontend_model>
+                <comment><![CDATA[*Above action will export all products where color is assigned but swatch is null]]></comment>
+            </field>
+        </group>
+        <group id="export_product_raw_material" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Export all products with raw material</label>
+            <field id="export_all_product" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Export Raw Material Products</label>
+                <frontend_model>Baytonia\ExportSalableProduct\Block\System\Config\ExportRawMaterialproduct</frontend_model>
+                <comment><![CDATA[*Above action will export all products with raw material]]></comment>
+            </field>
+        </group>
+        <group id="export_odoo_customer" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Export all odoo customers</label>
+            <field id="export_odoo_customer" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Export Odoo Customer</label>
+                <frontend_model>Baytonia\ExportSalableProduct\Block\System\Config\ExportCustomerOdoo</frontend_model>
+                <comment><![CDATA[*Above action will export all odoo customer]]></comment>
+            </field>
+        </group>
+    </section>
+</system>
+</config>

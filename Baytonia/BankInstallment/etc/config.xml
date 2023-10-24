@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <bankinstallment>
+            <general>
+                <enable_frontend>1</enable_frontend>
+            </general>
+        </bankinstallment>
+        <system>
+            <media_storage_configuration>
+                <allowed_resources>
+                    <bankinstallment_folder>baytoniabanklogo</bankinstallment_folder>
+                </allowed_resources>
+            </media_storage_configuration>
+        </system>
+    </default>
+</config>

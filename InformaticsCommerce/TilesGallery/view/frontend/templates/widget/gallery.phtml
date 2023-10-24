@@ -1,0 +1,26 @@
+<?php
+/** @var \InformaticsCommerce\TilesGallery\Block\Widget\Gallery $block */
+
+
+
+$element = $block->getCategory();
+
+?>
+
+<div class="product-timer">
+    <div class="owner-product">
+        <h3 class="title">Product Categories</h3>
+    </div>
+    <div class="row img-top-block">
+        <?php  foreach ($element as $item):  ?>
+            <div  class="cat-thumbs col">
+                <a href="<?= $block->escapeHtml($item['url']) ?>"> 
+                    <img class="lazyload loaded cat-thumb-img" src="<?= $block->escapeHtml($item['img']) ?>"  alt="">
+                    <h3 style="background-color: <?= $block->escapeHtml($block->getData('category_color_1')) ?>" ><?= $block->escapeHtml($item['name']) ?></h3>
+                    <div class="container-description"><?= $block->escapeHtml($item['description']) ?></div>
+                    <div class="learn-more">Learn more</div>
+                </a>
+            </div>
+        <?php endforeach;  ?>
+    </div>
+</div>

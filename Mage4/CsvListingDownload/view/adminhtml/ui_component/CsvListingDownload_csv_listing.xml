@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../../../../../Magento/Ui/etc/ui_configuration.xsd">
+
+
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">CsvListingDownload_csv_listing.CsvListingDownload_csv_listing_data_source</item>
+            <item name="deps" xsi:type="string">CsvListingDownload_csv_listing.CsvListingDownload_csv_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">CsvListingDownload_csv_listing_columns</item>
+
+    </argument>
+
+    <dataSource name="CsvListingDownload_csv_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="name" xsi:type="string">CsvListingDownload_csv_listing_data_source</argument>
+            <argument name="class" xsi:type="string">Mage4\CsvListingDownload\Ui\DataProvider\CsvDataProvider</argument>
+            <argument name="primaryFieldName" xsi:type="string">csv_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render" />
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <container name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            </item>
+        </argument>
+
+
+    </container>
+
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+<!--        <filterSearch name="fulltext"/>-->
+<!--        <filters name="listing_filters">-->
+<!--            <settings>-->
+<!--                <templates>-->
+<!--                    <filters>-->
+<!--                        <select>-->
+<!--                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>-->
+<!--                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>-->
+<!--                        </select>-->
+<!--                    </filters>-->
+<!--                </templates>-->
+<!--            </settings>-->
+<!--        </filters>-->
+<!--        <massaction name="listing_massaction">-->
+<!--            <action name="delete">-->
+<!--                <settings>-->
+<!--                    <confirm>-->
+<!--                        <message translate="true">Are you sure you want to delete selected items?</message>-->
+<!--                        <title translate="true">Delete items</title>-->
+<!--                    </confirm>-->
+<!--                    <url path="downloadadmin/csv/massDelete"/>-->
+<!--                    <type>delete</type>-->
+<!--                    <label translate="true">Delete</label>-->
+<!--                </settings>-->
+<!--            </action>-->
+<!--        </massaction>-->
+        <paging name="listing_paging" />
+    </listingToolbar>
+    <columns name="CsvListingDownload_csv_listing_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">CsvListingDownload_csv_listing.CsvListingDownload_csv_listing.listing_top.bookmarks</item>
+                    <item name="namespace" xsi:type="string">current</item>
+                </item>
+                <item name="editorConfig" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">CsvListingDownload_csv_listing.CsvListingDownload_csv_listing.CsvListingDownload_csv_listing_columns.ids</item>
+                    <item name="enabled" xsi:type="boolean">true</item>
+                    <item name="indexField" xsi:type="string">csv_id</item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">CsvListingDownload_csv_listing.CsvListingDownload_csv_listing.CsvListingDownload_csv_listing_columns_editor</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                            <item name="1" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">CsvListingDownload_csv_listing.CsvListingDownload_csv_listing.CsvListingDownload_csv_listing.listing_top.bookmarks</item>
+                        <item name="root" xsi:type="string">columns.${ $.index }</item>
+                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root }</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+<!--        <selectionsColumn name="ids">-->
+<!--            <settings>-->
+<!--                <indexField>id</indexField>-->
+<!--            </settings>-->
+<!--        </selectionsColumn>-->
+<!--        <column name="csv_id">-->
+<!--            <settings>-->
+<!--                <filter>textRange</filter>-->
+<!--                <label translate="true">ID</label>-->
+
+<!--                <sorting>asc</sorting>-->
+<!--            </settings>-->
+<!--        </column>-->
+
+        <column name="csv_id" >
+
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Csv Id</item>
+                </item>
+            </argument>
+        </column>
+<!--        <selectionsColumn name="csv_id">-->
+<!--            <settings>-->
+<!--                <indexField>csv_id</indexField>-->
+<!--            </settings>-->
+<!--        </selectionsColumn>-->
+
+        <actionsColumn name="filename" class="Mage4\CsvListingDownload\Ui\Component\Listing\Columns\FileNameText">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Filename/Sku</item>
+                </item>
+            </argument>
+        </actionsColumn>
+        <column name="uploaded_at">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="editor" xsi:type="array">
+                        <item name="editorType" xsi:type="string">text</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="align" xsi:type="string">left</item>
+                    <item name="label" xsi:type="string" translate="true">Uploaded At</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="Download" class="Mage4\CsvListingDownload\Ui\Component\Listing\Columns\DownloadActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="js_config" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Download</item>
+                </item>
+            </argument>
+        </actionsColumn>
+
+    </columns>
+</listing>

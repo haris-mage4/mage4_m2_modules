@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="GET" url="/V1/baytonia/search/:param">
+		<service class="Baytonia\SearchApi\Api\WebServicesManagementInterface" method="getSearchQuery"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    <route method="GET" url="/V1/baytonia/searchresults/:param/:pagenumber">
+		<service class="Baytonia\SearchApi\Api\WebServicesManagementInterface" method="getSearchResults"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+</routes>

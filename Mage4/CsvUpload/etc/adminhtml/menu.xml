@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mage4_CsvUpload::csv" title="Mage4" module="Mage4_CsvUpload" sortOrder="20" resource="Mage4_CsvUpload::csv"/>
+        <add action="Mage4_csvupload/index/submit" id="Mage4_CsvUpload::index_submit" module="Mage4_CsvUpload" parent="Mage4_CsvUpload::csv" resource="Mage4_CsvUpload::index_submit" sortOrder="10" title="Extended Csv"/>
+    </menu>
+</config>

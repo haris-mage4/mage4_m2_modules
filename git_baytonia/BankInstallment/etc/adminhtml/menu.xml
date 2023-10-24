@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Baytonia_BankInstallment::bankinstallment" title="Baytonia Bank Installment" module="Baytonia_BankInstallment" sortOrder="100" resource="Baytonia_BankInstallment::bankinstallment" parent="Magento_Backend::content"/>
+        <add id="Baytonia_BankInstallment::bankinstallment_banks" title="Manage Bank Logos" module="Baytonia_BankInstallment" sortOrder="50" parent="Baytonia_BankInstallment::bankinstallment" action="bankinstallment/bank" resource="Baytonia_BankInstallment::bankinstallment_banks"/>
+    </menu>
+</config>

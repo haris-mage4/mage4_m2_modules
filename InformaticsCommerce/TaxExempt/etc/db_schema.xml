@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="tax_exempt_number" nullable="true" length="255" comment="Tax Exempt Number"/>
+        <column xsi:type="varchar" name="upload_document"  nullable="true" length="255" comment="Document"/>
+    </table>
+
+    <table name="sales_order" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="tax_exempt_number" nullable="true" length="255" comment="Tax Exempt Number"/>
+        <column xsi:type="varchar" name="upload_document"  nullable="true" length="255" comment="Document"/>
+    </table>
+    <table name="sales_order_grid" resource="default" engine="innodb">
+        <column xsi:type="varchar" name="tax_exempt_number" nullable="true" length="255" comment="Tax Exempt Number"/>
+        <column xsi:type="varchar" name="upload_document"  nullable="true" length="255" comment="Document"/>
+    </table>
+</schema>

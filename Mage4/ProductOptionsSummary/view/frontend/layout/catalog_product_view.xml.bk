@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright Â© 2018 Porto. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="2columns-right" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.media">
+            <block class="Mage4\ProductOptionsSummary\Block\Product\Options\Summary" name="options_summary" after="-" template="Mage4_ProductOptionsSummary::product/view/selected-options-summary.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

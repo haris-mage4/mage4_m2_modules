@@ -1,0 +1,11 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <dev>
+            <js>
+                <minify_exclude>
+                    <example1>/checkout/</example1>
+                </minify_exclude>
+            </js>
+        </dev>
+    </default>
+</config>

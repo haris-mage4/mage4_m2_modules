@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Spotii\Spotiipay\Helper\Data" type="Baytonia\SpotiiExtended\Helper\Data"/>
+    <preference for="Spotii\Spotiipay\Block\Adminhtml\System\Config\Fieldset\Payment" type="Baytonia\SpotiiExtended\Block\Adminhtml\System\Config\Fieldset\Payment" />
+    <preference for="Spotii\Spotiipay\Controller\Standard\CheckInventory" type="Baytonia\SpotiiExtended\Controller\Standard\CheckInventory"/>
+</config>

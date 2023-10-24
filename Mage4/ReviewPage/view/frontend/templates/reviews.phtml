@@ -1,0 +1,48 @@
+<?php
+$reviewsCollection = $block->getAllReviews();
+
+foreach ($reviewsCollection as $review): ?>
+    <?php $productUrl = $review->getData('product_url'); ?>
+    <?php $productName = $review->getData('product_name'); ?>
+    <div class='review-single'>
+        <div class="box-review-single">
+            <div id="first-letter">
+                <?= strtoupper(substr($review['nickname'], 0, 1)); ?>
+            </div>
+            <div id="nickName-review">
+                <?= $review->getNickname(); ?>
+            </div>
+            <?php
+            $countRatings = count($review->getRatingVotes());
+            ?>
+            <?php if ($countRatings > 0) : ?>
+            <?php
+            $allRatings = 0;
+            foreach ($review->getRatingVotes() as $vote) {
+                $allRatings = $allRatings + $vote->getPercent();
+            }
+            $allRatingsAvg = $allRatings / $countRatings;
+            ?>
+            <div class="rating-box">
+                <div class="rating" style="width:<?= $allRatingsAvg ?>%"></div>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div id="date-review">
+            <small class="date"><?= (new \DateTimeImmutable($review->getCreatedAt()))->format('m/d/Y') ?></small>
+        </div>
+        <div id="title-review">
+            <?= $review->getTitle(); ?>
+        </div>
+        <div id="detail-review">
+            <?= $review->getDetail(); ?>
+        </div>
+        <div id="product-link-review">
+            <a href="<?= $productUrl ?>"><?= $productName; ?></a>
+        </div>
+    </div>
+
+<?php endforeach; ?>
+<?php if ($block->getPagerHtml()): ?>
+    <div class="review-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>

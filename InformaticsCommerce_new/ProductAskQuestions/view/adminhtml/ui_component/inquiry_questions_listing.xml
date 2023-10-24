@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+  <argument name="data" xsi:type="array">
+     <item name="js_config" xsi:type="array">
+        <item name="provider" xsi:type="string">inquiry_questions_listing.inquiry_questions_listing_data_source</item>
+        <item name="deps" xsi:type="string">inquiry_questions_listing.inquiry_questions_listing_data_source</item>
+     </item>
+     <item name="spinner" xsi:type="string">inquiry_questions_columns</item>
+  </argument>
+  <dataSource name="inquiry_questions_listing_data_source">
+   <argument name="dataProvider" xsi:type="configurableObject">
+       <argument name="class" xsi:type="string">InformaticsCommerce\ProductAskQuestions\Ui\DataProvider\Category\ListingDataProvider</argument>
+       <argument name="name" xsi:type="string">inquiry_questions_listing_data_source</argument>
+       <argument name="primaryFieldName" xsi:type="string">id</argument>
+       <argument name="requestFieldName" xsi:type="string">id</argument>
+       <argument name="data" xsi:type="array">
+         <item name="config" xsi:type="array">
+           <item name="update_url" xsi:type="url" path="mui/index/render"/>
+             <item name="storageConfig" xsi:type="array">
+                 <item name="indexField" xsi:type="string">id</item>
+             </item>
+         </item>
+       </argument>
+   </argument>
+   <argument name="data" xsi:type="array">
+     <item name="js_config" xsi:type="array">
+        <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+     </item>
+   </argument>
+  </dataSource>
+  <listingToolbar name="listing_top">
+    <bookmark name="bookmarks"/>
+    <columnsControls name="columns_controls"/>
+    <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="templates" xsi:type="array">
+                        <item name="filters" xsi:type="array">
+                            <item name="select" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+    </filters>
+    <paging name="listing_paging"/>
+  </listingToolbar>
+  <columns name="inquiry_questions_columns">
+    <selectionsColumn name="ids">
+       <argument name="data" xsi:type="array">
+           <item name="config" xsi:type="array">
+              <item name="indexField" xsi:type="string">id</item>
+           </item>
+       </argument>
+    </selectionsColumn>
+    <column name="id">
+      <argument name="data" xsi:type="array">
+         <item name="config" xsi:type="array">
+            <item name="filter" xsi:type="string">textRange</item>
+            <item name="label" xsi:type="string" translate="true">ID</item>
+            <item name="resizeDefaultWidth" xsi:type="string">25</item>
+         </item>
+      </argument>
+    </column>
+    <column name="product_sku">
+      <settings>
+         <filter>text</filter>
+         <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+         <label translate="true">Sku</label>
+      </settings>
+    </column>
+    <column name="customername">
+      <settings>
+         <filter>text</filter>
+         <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+         <label translate="true">Name</label>
+      </settings>
+    </column>
+      <column name="email">
+      <settings>
+         <filter>text</filter>
+         <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+         <label translate="true">Email</label>
+      </settings>
+    </column>
+      <column name="phonenumber">
+          <settings>
+              <filter>text</filter>
+              <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+              <label translate="true">Phone Number</label>
+          </settings>
+      </column>
+      <column name="question">
+          <settings>
+              <filter>text</filter>
+              <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+              <label translate="true">Question</label>
+          </settings>
+      </column>
+<!--    <actionsColumn name="actions" class="InformaticsCommerce\ProductAskQuestions\Ui\Component\Category\Listing\Column\Actions" sortOrder="1000">-->
+<!--       <argument name="data" xsi:type="array">-->
+<!--          <item name="config" xsi:type="array">-->
+<!--              <item name="resizeEnabled" xsi:type="boolean">false</item>-->
+<!--              <item name="resizeDefaultWidth" xsi:type="string">107</item>-->
+<!--              <item name="indexField" xsi:type="string">id</item>-->
+<!--          </item>-->
+<!--       </argument>-->
+<!--       <argument name="viewUrl" xsi:type="string">catalog/category/view</argument>-->
+<!--    </actionsColumn>-->
+  </columns>
+</listing>

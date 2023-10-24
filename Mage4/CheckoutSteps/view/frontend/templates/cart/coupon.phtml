@@ -1,0 +1,94 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Generic.Files.LineLength.TooLong
+
+/**
+ * @var \Magento\Framework\View\Element\AbstractBlock $block
+ */
+
+// We should use strlen function because coupon code could be "0", converted to bool will lead to false
+$hasCouponCode = $block->getCouponCode() !== null && strlen($block->getCouponCode()) > 0;
+?>
+<div class="block discount"
+     id="block-discount"
+     data-mage-init='{"collapsible":{"active": <?= $hasCouponCode ? 'true' : 'false' ?>, "openedState": "active", "saveState": false}}'>
+    <div class="title" data-role="title">
+        <strong id="block-discount-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Have a promo code?')) ?></strong>
+    </div>
+    <div class="content" data-role="content" aria-labelledby="block-discount-heading" id="block-discount-cart-content">
+        <div class="coupon-inner">
+            <h3 class="c-cart-discount__title title_h6" data-role="title">Discount Codes</h3>
+            <button class="c-cart-discount__close">
+                <svg width="25" height="25" viewBox="0 0 25 25" fill="#333" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.30168 20.6934C3.89944 20.2847 3.89944 19.6219 4.30168 19.2132L18.9705 4.30657C19.3727 3.89781 20.0249 3.89781 20.4271 4.30657C20.8294 4.71533 20.8294 5.37806 20.4271 5.78682L5.75832 20.6934C5.35608 21.1022 4.70392 21.1022 4.30168 20.6934Z"></path>
+                    <path d="M20.6983 20.6934C21.1006 20.2847 21.1006 19.6219 20.6983 19.2132L6.02949 4.30657C5.62725 3.89781 4.97509 3.89781 4.57285 4.30657C4.17062 4.71533 4.17062 5.37806 4.57285 5.78682L19.2417 20.6934C19.6439 21.1022 20.2961 21.1022 20.6983 20.6934Z"></path>
+                </svg>
+            </button>
+        </div>
+        <form class="coupon-form" id="discount-coupon-form"
+              action="<?= $block->escapeUrl($block->getUrl('checkout/cart/couponPost')) ?>"
+              method="post"
+              data-mage-init='{"discountCode":{"couponCodeSelector": "#coupon_code",
+                                               "removeCouponSelector": "#remove-coupon",
+                                               "applyButton": "button.action.apply",
+                                               "cancelButton": "button.action.cancel"}}'>
+            <div class="fieldset coupon<?= $hasCouponCode ? ' applied' : '' ?>">
+                <input type="hidden" name="remove" id="remove-coupon" value="0" />
+                <div class="field">
+                    <!-- <label for="coupon_code" class="label">
+                        <span><//?= $block->escapeHtml(__('Enter coupon code')) ?></span>
+                    </label> -->
+                    <div class="control">
+                        <input type="text"
+                               class="input-text"
+                               id="coupon_code"
+                               name="coupon_code"
+                               value="<?= $block->escapeHtmlAttr($block->getCouponCode()) ?>"
+                               placeholder="<?= $block->escapeHtmlAttr(__('Enter your coupon code')) ?>"
+                                <?php if ($hasCouponCode): ?>
+                                   disabled="disabled"
+                                <?php endif; ?>
+                        />
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <?php if (!$hasCouponCode): ?>
+                    <div class="primary">
+                        <button class="action apply primary" type="button"
+                                value="<?= $block->escapeHtmlAttr(__('Apply Coupon')) ?>">
+                            <span><?= $block->escapeHtml(__('Apply Coupon')) ?></span>
+                        </button>
+                    </div>
+                    <?php else: ?>
+                        <div class="primary">
+                            <button  type="button" class="action cancel primary"
+                                     value="<?= $block->escapeHtmlAttr(__('Cancel Coupon')) ?>">
+                                <span><?= $block->escapeHtml(__('Cancel Coupon')) ?></span>
+                            </button>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php if (!$hasCouponCode): ?>
+                <?= /* @noEscape */ $block->getChildHtml('captcha') ?>
+            <?php endif; ?>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['jquery'], function($){
+        $('#block-discount-heading').click(function(){
+            $('#block-discount-cart-content').slideDown('slow');
+        });
+        $('.c-cart-discount__close').click(function(){
+            $('#block-discount-cart-content').slideUp('slow');
+        });
+
+
+    });
+</script>

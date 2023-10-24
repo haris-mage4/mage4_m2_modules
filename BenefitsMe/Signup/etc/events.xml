@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_account_navigation">
+        <observer name="modify_customer_account_links" instance="BenefitsMe\Signup\Observer\ModifyCustomerAccountLinks" />
+    </event>
+</config>

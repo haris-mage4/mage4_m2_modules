@@ -1,0 +1,44 @@
+<div id="shipping_methods" data-bind="fadeVisible: isVisible">
+    <div class="step-title s-checkout__shipping-methods-title">Shipping method</div>
+
+    <div id="checkout-step-title"
+         class=""
+         data-role="content">
+
+        <each args="getRegion('before-shipping-method-form')" render="" ></each>
+
+        <div id="checkout-step-shipping_method"
+             class="step-content"
+             data-role="content"
+             role="tabpanel"
+             aria-hidden="false">
+            <form id="co-shipping-method-form"
+                  class="form methods-shipping"
+                  if="rates().length"
+                  submit="navigateToNextStep"
+                  novalidate="novalidate">
+
+                <render args="shippingMethodListTemplate"></render>
+
+                <div id="onepage-checkout-shipping-method-additional-load">
+                    <each args="getRegion('shippingAdditional')" render="" ></each>
+                </div>
+                <div role="alert"
+                     if="errorValidationMessage().length"
+                     class="message notice">
+                    <span text="errorValidationMessage()" />
+                </div>
+                <div class="s-checkout__shipping-methods-actions" id="shipping-method-buttons-container">
+                    <button data-role="opc-continue" type="submit" class="action primary button btn btn_xlg s-checkout__shipping-methods-btn">
+                        <span translate="'Continue to Payment'" />
+                    </button>
+                    <a href="#" data-bind="click: backToShipping" class="s-checkout__shipping-methods-back">Return to Shipping Address</a>
+                </div>
+            </form>
+            <div class="no-quotes-block"
+                 ifnot="rates().length > 0"
+                 translate="'Sorry, no quotes are available for this order at this time'" />
+        </div>
+    </div>
+</div>
+

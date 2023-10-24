@@ -1,0 +1,21 @@
+<?php /* @var $block \Magento\Framework\View\Element\Template  */ ?>
+<?php
+///** @var $geoIp \Mage4\CountryPreselect\ViewModel\GeoIp */
+//$geoIp = $block->getData('geo_ip');
+//$userCountryCode = $geoIp->getVisitorCountryCode();
+$ipAddress =  $_SERVER['REMOTE_ADDR'];
+$json       = file_get_contents("http://ipinfo.io/{$ipAddress}/json");
+$details    = json_decode($json);
+if(isset($details->country)) {
+    $userCountryCode = $details->country;
+}
+?>
+<?php if(!empty($userCountryCode) && $userCountryCode != 'ZZ'): ?>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Mage4_CountryPreselect/js/country-preselect": {"userCountryCode": "<?= $userCountryCode ?>"}
+        }
+    }
+</script>
+<?php endif; ?>

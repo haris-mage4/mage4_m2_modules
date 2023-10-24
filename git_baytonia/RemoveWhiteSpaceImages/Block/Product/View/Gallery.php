@@ -1,0 +1,163 @@
+<?php
+/**
+ * Copyright � 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Simple product data view
+ *
+ * @author     Magento Core Team <core@magentocommerce.com>
+ */
+namespace  Baytonia\RemoveWhiteSpaceImages\Block\Product\View;
+
+use Magento\Framework\Data\Collection;
+use Magento\Framework\Json\EncoderInterface;
+use Magento\Catalog\Helper\Image;
+//use Magento\Catalog\Helper\Image
+class Gallery extends \Magento\Catalog\Block\Product\View\Gallery
+{
+    /**
+     * @param \Magento\Catalog\Block\Product\Context $context
+     * @param \Magento\Framework\Stdlib\ArrayUtils $arrayUtils
+     * @param EncoderInterface $jsonEncoder
+     * @param array $data
+     */
+
+    protected $productImageHelper;
+
+    public function __construct(
+        \Magento\Catalog\Block\Product\Context $context,
+        \Magento\Framework\Stdlib\ArrayUtils $arrayUtils,
+        EncoderInterface $jsonEncoder,
+		\MGS\ThemeSettings\Helper\Config $themeHelper,
+        Image $productImageHelper,
+        array $data = []
+    ) {
+        $this->jsonEncoder = $jsonEncoder;
+        parent::__construct($context, $arrayUtils,  $jsonEncoder, $data);
+		$this->themeHelper = $themeHelper;
+        $this->productImageHelper = $productImageHelper;
+    }
+
+	protected function _prepareLayout()
+    {
+		$type = $this->themeHelper->getStoreConfig('extragallery/general/glr_type');
+		$galleryRight = $this->themeHelper->getStoreConfig('extragallery/general/gallery_right');
+		
+		$product = $this->getProduct();
+		if($product->getData('extragallery_glr_type')){
+			$type = $product->getData('extragallery_glr_type');
+		}
+		if($galleryRight){
+			$this->pageConfig->addBodyClass('gallery-float-right');
+		}
+		
+		switch ($type) {
+			case 1:
+				$this->pageConfig->addBodyClass('extra-gallery-sticky');
+				break;
+			case 2:
+				$this->pageConfig->addBodyClass('extra-gallery-grid');
+				break;
+			case 3:
+				$this->pageConfig->addBodyClass('extra-gallery-fullwidth');
+				break;
+		}
+		
+        return parent::_prepareLayout();
+    }
+    /**
+     * Retrieve collection of gallery images
+     *
+     * @return Collection
+     */
+    public function getGalleryImages()
+    {
+        $product = $this->getProduct();
+        $originalImage=$product->getImage();
+        $images = $product->getMediaGalleryImages();
+        $zoom_magnify = $this->themeHelper->getStoreConfig('extragallery/general/zoom_magnify');
+        $zoom_magnify = $zoom_magnify ? $zoom_magnify : 1.5;
+        if ($images instanceof \Magento\Framework\Data\Collection) {
+            foreach ($images as $image) {
+				if($this->isMainImage($image)){
+					$image->setData('is_base_image', 1);
+				}else{
+					$image->setData('is_base_image', 0);
+				}
+                /* @var \Magento\Framework\DataObject $image */
+                $image->setData(
+                    'small_image_url',
+                    $this->_imageHelper->init($product, 'product_page_image_small')
+                        ->setImageFile($image->getFile())
+                        ->getUrl()
+                );
+                $image->setData(
+                    'medium_image_url',
+                    $this->_imageHelper->init($product, 'product_page_image_medium')
+                        ->setImageFile($image->getFile())
+                        ->getUrl()
+                );
+                $image->setData(
+                    'large_image_url',
+                    $this->_imageHelper->init($product, 'product_page_image_large')
+                        ->setImageFile($image->getFile())
+                        ->getUrl()
+                );
+                $image->setData(
+                    'image_zoom',
+                    $this->_imageHelper->init($product, 'product_page_image_large')
+                        ->setImageFile($image->getFile())
+                        ->getUrl()
+                );
+                $image->setData(
+                    'origin_image',
+                    $originalImage
+                );
+                $image->setData(
+                    'origin_all',
+                    $image->getFile()
+                );
+                $resizedImage = $this->productImageHelper
+                ->init($product, 'product_page_image_large')
+                ->setImageFile($image->getFile())
+                ->constrainOnly(TRUE)
+                ->keepAspectRatio(TRUE)
+                ->keepTransparency(TRUE)
+                ->keepFrame(false);
+                //->resize(600, 700);
+
+                $image->setData(
+                    'image_resized',
+                    $resizedImage->getUrl()
+                );
+            }
+        }
+
+        return $images;
+    }
+
+    public function getResizeImageCustom()
+    {
+        $product2 = $this->getProduct();
+        print_r($product);
+        print_r($product->debug());
+        //die('ssss');
+        $images = $product2->getMediaGalleryImages();
+        $resizedImage = $this->productImageHelper
+                        ->init($product2, 'product_page_image_large')
+                        ->constrainOnly(TRUE)
+                        ->keepAspectRatio(false)
+                        ->keepTransparency(false)
+                        ->keepFrame(false)
+                        ->resize(600, 700);
+
+        return $resizedImage;
+        $images->setData(
+            'test_url',
+            $resizedImage 
+        );
+
+    }
+}

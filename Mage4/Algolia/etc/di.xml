@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Algolia\AlgoliaSearch\Helper\Data">
+        <plugin name="revoke_store_pages" type="Mage4\Algolia\Plugin\RevokeRebuildStorePage" sortOrder="1" />
+        <plugin name="revoke_store_category" type="Mage4\Algolia\Plugin\RevokeRebuildStoreCategory" sortOrder="2" />
+        <plugin name="revoke_category" type="Mage4\Algolia\Plugin\RevokeRebuildCategory" sortOrder="3" />
+    </type>
+    <type name="Algolia\AlgoliaSearch\Model\Indexer\Page">
+        <plugin name="revoke_store_pages_indexing" type="Mage4\Algolia\Plugin\Indexer\RevokeRebuildStorePageIndex" sortOrder="1" />
+    </type>
+    <type name="Algolia\AlgoliaSearch\Model\Indexer\Category">
+        <plugin name="revoke_store_category_indexing" type="Mage4\Algolia\Plugin\Indexer\RevokeCategoryIndex" sortOrder="1" />
+    </type>
+
+</config>

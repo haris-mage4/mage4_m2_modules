@@ -1,0 +1,33 @@
+<?php
+/** @var \Baytonia\CustomerDeactive\Block\Customer\Account\DeactiveLink $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$customerId = $block->getCustomerId();
+
+
+?>
+<form
+    id="account-deactive-form"
+    action=""
+    method="post"
+    enctype="multipart/form-data"
+>
+    <?= $block->getBlockHtml('formkey') ?>
+    <input type="hidden" name="customer-id" id="customer-id" value="<?= $customerId ?>">
+    <button type="button"
+            id="account-deactive-button"
+            class="action save primary"
+            data-action="account-deactive"
+            title="<?= $escaper->escapeHtmlAttr(__('Account Deactive')) ?>">
+        <span><?= $escaper->escapeHtml(__('Account Deactive')) ?></span>
+    </button>
+</form>
+
+<script type="text/x-magento-init">
+       {
+    "#account-deactive-form": {
+        "Baytonia_CustomerDeactive/js/proceed-to-deactive": {
+            "customerId": <?= /* @escapeNotVerified */ $customerId ?>
+        }
+    }
+}
+</script>

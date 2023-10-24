@@ -1,0 +1,25 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="InformaticsCommerce\TilesGallery\Block\Widget\Gallery" id="orange_test_widget">
+        <label>Tiles Gallery</label>
+        <description>Tiles Gallery</description>
+        <parameters>
+            <!--    Category Tile        -->
+            <parameter name="condition" xsi:type="conditions" visible="true" required="true" sort_order="10"
+                       class="Magento\CatalogWidget\Block\Product\Widget\Conditions">
+                <label translate="true">Conditions</label>
+            </parameter>
+        </parameters>
+    </widget>
+    <widget class="InformaticsCommerce\TilesGallery\Block\Widget\Products\Featured" id="featured_products_widget">
+        <label>Featured Products Slider</label>
+        <description>show featured products in slider</description>
+        <parameters>
+            <!--    Featured Products       -->
+            <parameter name="condition" xsi:type="conditions" visible="true" required="true" sort_order="10"
+                       class="Magento\CatalogWidget\Block\Product\Widget\Conditions">
+                <label translate="true">Conditions</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

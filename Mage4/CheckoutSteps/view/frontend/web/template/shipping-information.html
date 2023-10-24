@@ -1,0 +1,64 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<!-- ko if: (isVisible()) -->
+<div class="shipping-information-wrapper">
+    <div class="shipping-information">
+        <!-- ko if: (isVisible()) -->
+        <div class="customer-data checkout-info-line">
+            <div class="customer-data-title checkout-info-line__title">
+                <span data-bind="i18n: 'Contact'"></span>
+            </div>
+            <div class="customer-data-content checkout-info-line__content">
+                <span class="value" data-bind="text: getCustomerEmail()"></span>
+            </div>
+            <!-- ko ifnot: (isCustomerLoggedIn()) -->
+            <div class="checkout-info-line__action-block">
+                <button class="action checkout-info-line__action" data-bind="click: back">
+                    <span data-bind="i18n: 'Change'"></span>
+                </button>
+            </div>
+            <!--/ko-->
+        </div>
+
+        <div class="ship-to checkout-info-line">
+            <div class="shipping-information-title checkout-info-line__title">
+                <span data-bind="i18n: 'Ship To'"></span>
+            </div>
+            <div class="shipping-information-content checkout-info-line__content">
+                <!-- ko foreach: getRegion('ship-to') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+            </div>
+            <div class="checkout-info-line__action-block">
+                <button class="action checkout-info-line__action" data-bind="click: back2">
+                    <span data-bind="i18n: 'Change'"></span>
+                </button>
+            </div>
+        </div>
+
+        <!--/ko-->
+        <!-- ko if: (isVisibleMethods()) -->
+        <div class="ship-via checkout-info-line">
+            <div class="shipping-information-title checkout-info-line__title">
+                <span data-bind="i18n: 'Shipping Method'"></span>
+            </div>
+            <div class="shipping-information-content checkout-info-line__content">
+                <span class="value ps-smi-title" data-bind="html: getShippingMethodTitle()"></span>
+                <span class="price" data-bind="text: getShippingMethodPrice()"></span>
+                <div class="value ps-smi-description" data-bind="html: getShippingMethodDescription()"></div>
+            </div>
+            <div class="checkout-info-line__action-block">
+                <button class="action checkout-info-line__action" data-bind="click: backToShippingMethod">
+                    <span data-bind="i18n: 'Change'"></span>
+                </button>
+            </div>
+        </div>
+        <!--/ko-->
+    </div>
+</div>
+<!--/ko-->

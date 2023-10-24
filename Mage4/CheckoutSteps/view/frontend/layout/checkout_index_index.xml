@@ -1,0 +1,75 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-information" xsi:type="array">
+                                            <item name="sortOrder" xsi:type="string">0</item>
+                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/shipping-information</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="deps" xsi:type="string">checkout.steps.shipping-step.shippingAddress</item>
+                                            </item>
+                                            <item name="displayArea" xsi:type="string">shipping-information</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="ship-to" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Magento_Checkout/js/view/shipping-information/list</item>
+                                                    <item name="displayArea" xsi:type="string">ship-to</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="afterMethods" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="discount" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <!-- The new step you add -->
+                                        <item name="shipping-methods" xsi:type="array">
+                                            <item name="component" xsi:type="string">Mage4_CheckoutSteps/js/view/shipping-methods</item>
+                                            <!--To display step content before shipping step "sortOrder" value should be < 1-->
+                                            <!--To display step content between shipping step and payment step  1 < "sortOrder" < 2 -->
+                                            <!--To display step content after payment step "sortOrder" > 2 -->
+                                            <item name="sortOrder" xsi:type="string">2</item>
+                                            <item name="children" xsi:type="array">
+                                                <!--add here child component declaration for your step-->
+                                                <item name="price" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/shipping_method/price</item>
+                                                    <item name="displayArea" xsi:type="string">price</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-information" xsi:type="array">
+                                            <item name="config" xsi:type="array">
+                                                <item name="componentDisabled" xsi:type="boolean">true</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item> 
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

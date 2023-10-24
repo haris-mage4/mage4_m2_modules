@@ -1,0 +1,23 @@
+<input 
+class="input-text datalist-load" 
+list="city_list" 
+id="cityid" 
+type="text" 
+aria-required="true" 
+autocomplete="off" 
+data-list='{"valueCompletion": false, "highlight": true}' 
+data-bind="
+    value: value,
+    valueUpdate: 'keyup',
+    hasFocus: focused,
+    attr: {
+        name: inputName,
+        placeholder: 'الرجاء اختيار المدينة من القائمة',
+        'aria-describedby': getDescriptionId(),
+        'aria-required': required,
+        'aria-invalid': error() ? true : 'false',
+        id: 'dropList',
+        disabled: disabled
+    }" name="city" aria-required="true" aria-invalid="false" id="cityid">
+<datalist id="city_list"  title="اكتب اسم مدينتك" class="validate-select">
+</datalist>

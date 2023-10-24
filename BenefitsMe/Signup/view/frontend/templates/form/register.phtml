@@ -1,0 +1,682 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Customer\Helper\Address;
+
+/** @var \Magento\Customer\Block\Form\Register $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+/** @var Magento\Customer\Helper\Address $addressHelper */
+$addressHelper = $block->getData('addressHelper');
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
+/** @var \Magento\Customer\ViewModel\Address\RegionProvider $regionProvider */
+$regionProvider = $block->getRegionProvider();
+$formData = $block->getFormData();
+/** @var \Magento\Customer\ViewModel\CreateAccountButton $createAccountButtonViewModel */
+$createAccountButtonViewModel = $block->getData('create_account_button_view_model');
+?>
+<?php $displayAll = $block->getConfig('general/region/display_all'); ?>
+<?= $block->getChildHtml('form_fields_before') ?>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.register.extra') ?>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<style>
+#button{
+  display:block;
+  margin:20px auto;
+  padding:10px 30px;
+  background-color:#eee;
+  border:solid #ccc 1px;
+  cursor: pointer;
+}
+#overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height:100%;
+  display: none;
+  background: rgba(0,0,0,0.6);
+}
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.is-hide{
+  display:none;
+}
+
+.explainer {
+    font-size: 0.9em;
+    font-style:italic;
+}
+
+#form-create-account {
+    margin-top: 15px;
+}
+
+#html-body > div.page-wrapper > div.page-header.page-header-v1.sticky-header {
+    z-index: 99999999 !important;
+    background-color: white !important;
+}
+
+.error {
+    border:1.5px solid red !important;
+}
+
+.errortext {
+    color: red;
+}
+
+#ui-datepicker-div {
+    background-color: white !important;
+    border: 1px solid black;
+    padding: 5px;
+    display: none;
+}
+
+.ui-widget-header {
+    display: block;
+}
+
+.ui-widget-content .ui-state-default:hover{
+    border-radius: 2px;
+}
+
+.ui-datepicker-next, .ui-datepicker-prev {
+    display: none !important;
+}
+
+.page-header {
+    z-index: 900 !important;
+}
+
+.boldlink {
+    font-weight: bold !important;
+}
+
+.bi-eye-slash::before {
+    content: "\f320";
+}
+
+.modal-dialog {
+  height: 100%;
+  width: 600px;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content {
+  margin: 0 auto;
+}
+
+#passwordError1, #passwordError {
+    color: red;
+}
+
+#ui-datepicker-div > table > tbody > tr {
+    text-align: center !important;
+}
+
+.form.password.reset, .form.send.confirmation, .form.password.forget, .form.create.account, .form.search.advanced, .form.form-orders-search {
+    width: 100% !important;
+}
+
+.fieldset {
+    width: 50% !important;
+}
+
+p.red {
+    color: red;
+}
+
+#toggle_pwd
+{
+    cursor: pointer;
+    position: relative;
+    top: -23px;
+    z-index: 9;
+    left: 96%;
+}
+
+#toggle_pwd2
+{
+    cursor: pointer;
+    position: relative;
+    top: -23px;
+    z-index: 9;
+    left: 96%;
+}
+
+</style>
+
+<form class="form create account form-create-account" method="post" id="form-create-account" autocomplete="off">
+    <div class="stepOne">
+        <h3>Contact Information</h3>
+        <fieldset class="fieldset">
+
+            <div class="field required">
+                <label for="first_name" class="label"><span><?= $escaper->escapeHtml(__('First Name')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="first_name" id="first_name" class="input-text required">
+                </div>
+            </div>
+            <div class="field required">
+                <label for="last_name" class="label"><span><?= $escaper->escapeHtml(__('Last Name')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="last_name" id="last_name" class="input-text required">
+                </div>
+            </div>
+            <hr class="hr" />
+            <div class="field required">
+                <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="email" name="email" autocomplete="email" id="email" class="input-text required">
+                </div>
+
+            </div>
+
+
+
+            <hr class="hr" />
+
+            <div class="field required">
+                <label for="phone_number" class="label"><span><?= $escaper->escapeHtml(__('Cell Phone')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="cell_phone" autocomplete="cell_phone" id="cell_phone" class="input-text" placeholder="(XXX) XXX-XXXX">
+                </div>
+            </div>
+            <div class="field">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="marketing-checkbox" name="marketing-checkbox" checked>
+                    <label class="form-check-label" for="opt-in-checkbox">
+                    Subscribe to our marketing emails text messages (<a href='#' class="mkt-popup boldlink">view details</a>)
+                    </label>
+                </div>
+            </div>
+            <div class="field">
+                <label for="phone_number_type" class="label"><span><?= $escaper->escapeHtml(__('Phone Type')) ?></span></label>
+                <div class="control">
+                    <select autocomplete="off" name="phone_type" id="phone_type">
+                        <option value="home">Home Phone</option>
+                        <option value="office">Office Phone</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="phone_number" class="label"><span><?= $escaper->escapeHtml(__('Phone Number')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="phone_number" autocomplete="phone_number" id="phone_number" class="input-text" placeholder="(XXX) XXX-XXXX">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="terms-checkbox" name="terms-checkbox" checked>
+                    <label class="form-check-label" for="terms-checkbox">
+                    I agree with the <a href='https://benefitsme.com/terms-of-service/' class="boldlink" target="_blank">terms of service</a> and the <a href='https://benefitsme.com/privacy-policy/' class="boldlink" target="_blank">privacy policy</a>
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a class="action btn primary" id="stepOneSubmit" href="#"><span><?= $escaper->escapeHtml(__('Unlock Spending Benefit')) ?></span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="stepTwo" style="display: none;">
+
+        <div class="errorDiv" style="display: none;">
+            <h2>We were unable to verify your account with the information collected from your employer.</h2>
+            <p class="red">Employer data mismatch, please update.</p>
+        </div>
+
+
+        <fieldset class="fieldset">
+            <h3>New Password</h3>
+            <div class="field password required">
+                <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="password" name="password" id="password" class="input-text required">
+                    <span id="toggle_pwd" class="fa fa-fw fa-eye field_icon"></span>
+                </div>
+                <div id="passwordError1"></div>
+            </div>
+
+            <div class="field password required">
+                <label for="password2" class="label"><span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="password" name="password2" id="password2" class="input-text required">
+                    <span id="toggle_pwd2" class="fa fa-fw fa-eye field_icon"></span>
+                </div>
+                <div id="passwordError"></div>
+            </div>
+
+            <hr class="hr" />
+            <h3>Address Information</h3>
+            <div class="field required">
+                <label for="address_line_one" class="label"><span><?= $escaper->escapeHtml(__('Address Line 1')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="address_line_one" id="address_line_one" class="input-text required">
+                </div>
+            </div>
+            <div class="field">
+                <label for="address_line_two" class="label"><span><?= $escaper->escapeHtml(__('Address Line 2')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="address_line_two" id="address_line_two" class="input-text">
+                </div>
+            </div>
+            <div class="field required">
+                <label for="city" class="label"><span><?= $escaper->escapeHtml(__('City')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="city" id="city" class="input-text required">
+                </div>
+            </div>
+            <div class="field required">
+                <label for="state" class="label"><span><?= $escaper->escapeHtml(__('State')) ?></span></label>
+                <div class="control">
+                    <select autocomplete="off" id="state" name="state" class="required">
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District Of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field required">
+                <label for="zip" class="label"><span><?= $escaper->escapeHtml(__('Zip')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="zip" id="zip" class="input-text required">
+                </div>
+            </div>
+
+            <hr class="hr" />
+            <h3>Personal Information</h3>
+            <div class="field required">
+                <label for="dob" class="label"><span><?= $escaper->escapeHtml(__('Date of Birth ')) ?><i>(Must match date provided by Employer)</span></label>
+                <div class="field date">
+                    <input autocomplete="off" type="text" class="input-text required isdate" id="dob" name="dob" placeholder="MM/DD/YYYY" />
+                </div>
+            </div>
+            <div class="field required">
+                <label for="ssn_itin" class="label"><span><?= $escaper->escapeHtml(__('SSN or ITIN')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="ssn_itin" id="ssn_itin" class="input-text required" placeholder="XXX-XX-XXXX">
+                </div>
+            </div>
+
+            <hr class="hr" />
+            <h3>Employment Information</h3>
+            <div class="field required">
+                <label for="employer_id" class="label"><span><?= $escaper->escapeHtml(__('Employee ID')) ?></span></label>
+                <div class="control">
+                    <input autocomplete="off" type="text" name="employee_id" id="employee_id" class="input-text required">
+                    <p class='explainer'>If you do not know your Employee ID, please contact your HR Department or access your HR/Payroll system of record to retrieve.</p>
+                </div>
+            </div>
+        </fieldset>
+        <br />
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a class="action btn primary" id="submitSignupButton" href="#"><span><?= $escaper->escapeHtml(__('Submit')) ?></span></a>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+<div class="successDiv" style="display: none;">
+    <h2>Your account has been verified.</h2>
+    <p>Your account has been successfully verified.  You can click <a href="/default/customer/account/login/">here</a> to login.</p>
+</div>
+
+<div class="existsDiv" style="display: none;">
+    <h2>An account already exists with the provided information. Please try to login.</h2>
+p>
+</div>
+
+<div id="overlay">
+    <div class="cv-spinner">
+        <span class="spinner"></span>
+    </div>
+</div>
+
+<div id="modal-content">
+    <div class="modal-inner-content">
+        <p>By checking here you authorize Benefitsme (or our service provider) to send marketing and promotional e-mails, make telemarketing calls and deliver sales and marketing text messages to you using an automatic telephone dialing system or an artificial or prerecorded voice.  A machine may play messages automatically when the phone is answered, weather by you, someone else or a recorded device.  You understand that standard message and data rates may apply, and you agree that we are not liable to reimburse you.  You can withdraw this optional consent at any time by visiting  your Accounts page, calling us toll-free at <a href="8009604509">(800) 960-4509</a> or mailing us at customer service Benefitsme 3611 N. Ridge Road, Wichita KS 67205. </p>
+    </div>
+</div>
+
+<script>
+require([
+    'jquery',
+    'mage/calendar',
+    'Magento_Ui/js/modal/modal'
+], function($, cal, modal){
+
+    $("#toggle_pwd").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+       var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+        $("#password").attr("type", type);
+    });
+
+    $("#toggle_pwd2").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+       var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+        $("#password2").attr("type", type);
+    });
+
+    $('#password').blur(function() {
+        var password = $(this).val();
+
+        var hasLower = /[a-z]/.test(password);
+        var hasUpper = /[A-Z]/.test(password);
+        var hasNumber = /\d/.test(password);
+
+        var isCorrectLength = false;
+        if(password.length >= 8) {
+            isCorrectLength = true;
+        }
+
+        if (hasLower && hasUpper && hasNumber && isCorrectLength) {
+            $('#passwordError1').hide();
+        } else {
+            $('#passwordError1').html('Password must be at least 8 characters long, contain at least 1 upper case letter, at least 1 lower case letter, and at least 1 number.');
+            $('#passwordError1').show();
+        }
+    });
+
+    $('#ssn_itin').on('keydown', function(e) {
+        if (e.keyCode !== 8 && e.keyCode !== 9 && e.keyCode !== 46) {
+            if ($(this).val().length === 3 || $(this).val().length === 6) {
+                $(this).val($(this).val() + '-');
+            }
+        }
+    });
+
+    $('#ssn_itin').on('blur', function() {
+        var ssn = $(this).val().replace(/\D/g, '');
+        if (ssn.length === 9) {
+            $(this).removeClass('error');
+            jQuery(".ssn_error").remove();
+        } else {
+            $(this).addClass('error');
+            $(this).parent().append("<p class='ssn_error'>Invalid SSN or ITIN</p>");
+        }
+    });
+
+    $('.isdate').on('keydown', function(e) {
+        if (e.keyCode !== 8 && e.keyCode !== 9 && e.keyCode !== 46) {
+            if ($(this).val().length === 2 || $(this).val().length === 5) {
+                $(this).val($(this).val() + '/');
+            }
+        }
+    });
+
+    $('#cell_phone').on('input', function() {
+        var phone = $(this).val().replace(/\D/g, '');
+        var formattedPhone = phone.substring(0,3) + '-' + phone.substring(3,6) + '-' + phone.substring(6,10);
+        $(this).val('(' + formattedPhone.substring(0,3) + ') ' + formattedPhone.substring(4));
+    });
+
+    $('#phone_number').on('input', function() {
+        var phone = $(this).val().replace(/\D/g, '');
+        var formattedPhone = phone.substring(0,3) + '-' + phone.substring(3,6) + '-' + phone.substring(6,10);
+        $(this).val('(' + formattedPhone.substring(0,3) + ') ' + formattedPhone.substring(4));
+    });
+
+    var options = {
+        type: 'popup',
+        responsive: true,
+        innerScroll: true,
+        title: null,
+        buttons: [{
+            text: $.mage.__('Ok'),
+            class: 'modal-close',
+            click: function (){
+                this.closeModal();
+            }
+        }]
+    };
+
+    modal(options, $('#modal-content'));
+    $(".mkt-popup").on('click',function(){
+        $("#modal-content").modal("openModal");
+    });
+
+
+    function IsEmail(email) {
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!regex.test(email)) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    $('#dob').calendar({
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        yearRange: "-100:+0"
+    });
+
+    $('#date_started').calendar({
+        changeMonth: true,
+        changeYear: true,
+        showOn: "both",
+        yearRange: "-100:+0"
+    });
+
+
+    $('#password2').blur(function() {
+        var password1 = $('#password').val();
+        var password2 = $(this).val();
+        if (password1 !== password2) {
+            $('#passwordError').html('Passwords do not match').show();
+        } else {
+            $('#passwordError').html('').hide();
+        }
+    });
+
+
+    jQuery("#stepOneSubmit").click(function() {
+
+        // Verifications
+        var isValid = true;
+
+        jQuery(".errortext").remove();
+
+        $('.stepOne input.required').each(function() {
+            if ($(this).val() === '') {
+                $(this).addClass('error');
+                $(this).parent().append("<p class='errortext'>This field is required.</p>");
+                isValid = false;
+            } else {
+                $(this).removeClass('error');
+            }
+        });
+
+        if(isValid) {
+
+            if(IsEmail($("#email").val()) == false) {
+                $("#email").addClass('error');
+                $("#email").parent().append("<p class='errortext'>Invalid Email Address</p>");
+                isValid = false;
+            }
+
+        }
+
+        if(!$("#terms-checkbox").is(":checked")) {
+            $("#terms-checkbox").parent().append("<p class='errortext'>This field is required.</p>");
+            isValid = false;
+        }
+
+        if(isValid) {
+            jQuery("#overlay").fadeIn(100, function() {
+                jQuery("div.stepOne").fadeOut(500, function() {
+                    jQuery("div.stepTwo").fadeIn(500, function() {
+                        jQuery("#overlay").fadeOut(300);
+                    });
+                });
+            });
+        }
+    });
+
+    jQuery("#submitSignupButton").click(function() {
+
+        // Verifications
+        var isValid = true;
+
+        jQuery(".errortext").remove();
+
+        $('.stepTwo input.required').each(function() {
+            if ($(this).val() === '') {
+                $(this).addClass('error');
+                $(this).parent().append("<p class='errortext'>This field is required.</p>");
+                isValid = false;
+            } else {
+                $(this).removeClass('error');
+            }
+        });
+
+        if($("#password").val() != $("#password2").val()) {
+            $("#password2").parent().append("<p class='errortext'>Passwords do not match</p>");
+            isValid = false;
+        }
+
+        var eighteenYearsAgo = new Date();
+        eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+
+        var dob = $('#dob').val();
+        var dobDate = new Date(dob);
+
+        if (dobDate >= eighteenYearsAgo) {
+            $("#dob").parent().append("<p class='errortext'>You must be at least 18 years old to register.</p>");
+            isValid = false;
+        }
+
+        if(isValid) {
+
+            if(jQuery(".form-create-account").valid()) {
+
+                jQuery("#overlay").fadeIn(100);
+
+                var theData = jQuery(".form-create-account").serialize();
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/createUser.php',
+                    data: theData,
+                    success: function(response) {
+
+                        if(response == "true") {
+                            jQuery("div.stepTwo").fadeOut(500, function() {
+                                jQuery("div.successDiv").fadeIn(500, function() {
+                                    jQuery("#overlay").fadeOut(300);
+                                });
+                            });
+                        } else if(response == "exists") {
+                            console.log(response);
+                            jQuery("div.stepTwo").fadeOut(500, function() {
+                                jQuery("div.existsDiv").fadeIn(500, function() {
+                                    jQuery("#overlay").fadeOut(50);
+                                });
+                            });
+                        } else {
+                            //jQuery("div.stepTwo").fadeOut(500, function() {
+                                jQuery("div.errorDiv").fadeIn(500, function() {
+                                    console.log(response);
+                                    jQuery("#dob").addClass("error");
+                                    jQuery("#employee_id").addClass("error");
+                                    jQuery("#overlay").fadeOut(50);
+                                });
+                            //});
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        jQuery("div.stepTwo").fadeOut(500, function() {
+                            jQuery("div.errorDiv").fadeIn(500, function() {
+                                jQuery("#overlay").fadeOut(50);
+                            });
+                        });
+                    }
+                });
+            }
+        }
+    });
+});
+</script>

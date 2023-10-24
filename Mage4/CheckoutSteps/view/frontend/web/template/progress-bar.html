@@ -1,0 +1,28 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="checkout_progress_bar">
+    <div class="s-checkout__title">
+        <div class="s-checkout__title-icon">
+            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 12C0 11.0572 0 10.5858 0.292893 10.2929C0.585786 10 1.05719 10 2 10H22C22.9428 10 23.4142 10 23.7071 10.2929C24 10.5858 24 11.0572 24 12V21C24 22.8856 24 23.8284 23.4142 24.4142C22.8284 25 21.8856 25 20 25H12H4C2.11438 25 1.17157 25 0.585786 24.4142C0 23.8284 0 22.8856 0 21V12Z" fill="black"/>
+                <path d="M18.75 10V8.5C18.75 6.87228 18.75 6.05842 18.5623 5.3928C18.0901 3.71847 16.7815 2.40993 15.1072 1.93772C14.4416 1.75 13.6277 1.75 12 1.75V1.75C10.3723 1.75 9.55842 1.75 8.8928 1.93772C7.21847 2.40993 5.90993 3.71847 5.43772 5.3928C5.25 6.05842 5.25 6.87228 5.25 8.5V10" stroke="black" stroke-width="2"/>
+                <circle cx="12" cy="17.5" r="3" fill="black"/>
+            </svg>
+        </div>
+        <div class="s-checkout__title-text">Secure Checkout</div>
+    </div>
+    <ul class="opc-progress-bar">
+        <!-- ko foreach: { data: steps().sort(sortItems), as: 'item' } -->
+            <li class="opc-progress-bar-item" data-bind="css: item.isVisible() ? '_active' : ($parent.isProcessed(item) ? '_complete' : '')">
+                <span data-bind="i18n: item.title"></span>
+            </li>
+        <!-- /ko -->
+    </ul>
+</div>    
+
+
+

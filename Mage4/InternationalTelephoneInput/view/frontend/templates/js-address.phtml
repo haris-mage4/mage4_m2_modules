@@ -1,0 +1,12 @@
+<?php
+/**
+ * @var $block  Mage4\InternationalTelephoneInput\Block\PhoneNumber
+ */
+?>
+<script type="text/x-magento-init">
+    {
+        "input[name='telephone']": {
+            "Mage4_InternationalTelephoneInput/js/internationalTelephoneInput": <?php echo $block->phoneConfig(); ?>
+        }
+    }
+</script>

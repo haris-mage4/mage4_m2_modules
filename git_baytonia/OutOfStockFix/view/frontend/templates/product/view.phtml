@@ -1,0 +1,96 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php $_customerlogin = false; ?>
+<?php /* @var $block \Magento\ProductAlert\Block\Product\View */ ?>
+<div class="product alert <?= $block->getHtmlClass() ?>">
+    <a <?php if ($block->getSignupUrl()): $_customerlogin = true; ?> href="<?= $block->escapeUrl($block->
+getSignupUrl()) ?>" <?php else: ?> id="open_guest_email_popup" href="javascript:void(0);"<?php endif; ?>
+       title="<?= $block->escapeHtml(__($block->getSignupLabel())) ?>" class="action alert tocart primary">
+        <?= $block->escapeHtml(__($block->getSignupLabel())) ?>
+    </a>
+</div>
+<?php if(!$_customerlogin): $alertHelper = $this->helper("Magento\ProductAlert\Helper\Data"); ?>
+<div id="popup-modal">
+
+
+<form action="<?php echo $this->getUrl("outofstockfix\index\alert");  ?>" class="form" id="guest-alert-form" method="post" data-mage-init='{"validation":{"rules": {"alert_subscribe_email": {"required":true}}}}'>
+    <fieldset class="fieldset">
+        <div class="field email required">
+<label class="label" for="alert_subscribe_email"><span><?php echo __("Email"); ?></span></label><div class="control">
+<input id="alert_subscribe_email" name="alert_subscribe_email" value="" autocomplete="off" type="email" class="input-text line-height-xl" title="<?php echo
+__("Email"); ?>" data-validate="{required:true, 'validate-email':true}" aria-required="true" placeholder="<?php echo __("Enter your email address"); ?>"></div></div>
+
+<input type="hidden" id="alert_subscribe_url" name="alert_subscribe_url" value="<?php echo $alertHelper->getEncodedUrl() ?>" />
+<input type="hidden" id="alert_subscribe_pid" name="alert_subscribe_pid" value="<?php echo $alertHelper->getProduct()->getId() ?>" /> 
+<input type="hidden" id="alert_subscribe_pid" name="alert_subscribe_backurl" value="<?php echo $alertHelper->getProduct()->getProductUrl() ?>" /> 
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="Submit" class="action submit primary">
+                <span><?php echo __("Submit");?></span>
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+</div>
+<style>
+
+.modal-popup._show .modal-inner-wrap {
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: auto;
+    top:50%;
+}
+.modal-popup{
+    z-index: 999999;
+}
+
+
+</style>
+<script>
+require(
+[
+    'jquery',
+    'Magento_Ui/js/modal/modal'
+],
+function(
+    $,
+    modal
+) {
+    let options = {
+        type: 'popup',
+        responsive: true,
+        innerScroll: true,
+        title: '<?php echo __("Notify me when it is available"); ?>',
+        modalClass: 'bayt-prod-alert-modal',
+        buttons: [{
+            text: $.mage.__('Close'),
+            class: '',
+            click: function () {
+                this.closeModal();
+            }
+        }]
+    };
+    
+    let $myModal = $('#popup-modal');
+    let popup = modal(options, $myModal);
+    
+    $(document).ready(function(){
+       
+       $("#open_guest_email_popup").click(function(){
+        $myModal.modal('openModal');
+       });
+        
+    });
+    
+}
+);
+</script>
+<?php endif; ?>

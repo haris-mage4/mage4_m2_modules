@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Moyasser - WebView</title>
+        <css src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" src_type="url" />
+        <remove src="Magecomp_Whatsappcontact::whatsappcontact/css/whatsappcontact.css"/>
+        <remove src="css/styles-m.css" />
+        <remove src="mage/calendar.css" />
+        <remove src="css/select2.min.css" />
+        <remove src="css/styles-l.css" />
+        <remove src="css/print.css" />
+        <remove src="css/mgs_theme_style_guide.css" />
+        <remove src="css/mgs_theme_fonts.css" />
+        <remove src="css/mgs_theme.css" />
+        <remove src="css/mgs_theme_responsive.css" />
+        <remove src="css/aquickview.css" />
+        <remove src="css/mgs_brand.css" />
+        <remove src="css/mgs_tag.css" />
+        <remove src="Magezon_Core::css/mgz_bootstrap.css" />
+        <remove src="css/mgs_theme_rtl.css" />
+        <remove src="RTLSOL_Tag::css/owl.carousel.css" />
+        <remove src="RTLSOL_Tag::css/owl.transitions.css" />
+        <remove src="RTLSOL_Tag::css/owl.theme.css" />
+        <remove src="RTLSOL_Tag::css/owl.transitions.css" />
+        <remove src="RTLSOL_Tag::css/mgs_tag.css" />
+        <remove src="css/blocks.min.css" />
+        <remove src="css/fbuilder_config.min.css" />
+        <remove src="MGS_Brand::css/mgs_brand.css" />
+        <remove src="MGS_Aquickview::css/aquickview.css" />
+        <remove src="Amasty_SeoToolKit::css/source/mkcss/amseokit.css" />
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Baytonia\Webpages\Block\Index\Index" name="baytonia_index_index" template="Baytonia_Webpages::stc.phtml"/>
+        </referenceContainer>
+
+        
+        <referenceContainer name="whatsappcontact-design" remove="true" /> 
+        <referenceContainer name="tax.logo.container" remove="true" />
+        <referenceContainer name="cr_tax_registration_number" remove="true" />
+        <referenceBlock name="cr_tax_registration_number" remove="true" />
+        <referenceBlock name="checkout_page_secure_payment_notice" remove="true" />  
+        <referenceBlock name="theme.headers" remove="true" />  
+        <referenceContainer name="footer-container" remove="true"/>
+        <referenceBlock name="page.main.title" display="false"/>
+        <referenceBlock name="porto_custom_head" remove="true" />  
+        <referenceBlock name="footer-container" remove="true"/>
+        <referenceBlock name="navigation.sections" remove="true"/>
+        <referenceBlock name="porto_header" remove="true"/>
+        <referenceBlock name="top.search" remove="true"/>
+        <referenceBlock name="minicart" remove="true"/>
+        <referenceBlock name="currency" remove="true"/>
+        <referenceBlock name="skip_to_content" remove="true"/>
+        <referenceBlock name="page.top" remove="true"/>
+        
+              
+
+    </body>
+</page>
+
+

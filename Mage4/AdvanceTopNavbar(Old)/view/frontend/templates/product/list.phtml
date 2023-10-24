@@ -1,0 +1,161 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+
+?>
+<?php
+$_productCollection = $block->getProductCollection();
+
+$category = $block->getCategory();
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_helper = $block->getData('outputHelper');
+?>
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty">
+        <div><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+    </div>
+<?php else: ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() === 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <h3 class="current_category_title"><?=$category->getName() ?></h3>
+    <div class="products wrapper grid products-grid">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <li class="item product product-item">
+                    <div class="product-item-info"
+                         id="product-item-info_<?= /* @noEscape */ $_product->getId() ?>"
+                         data-container="product-<?= /* @noEscape */ 'grid' ?>">
+                        <?php
+                        $productImage = $block->getImage($_product, 'category_page_grid');
+                        if ($pos != null) {
+                            $position = 'left:' . $productImage->getWidth() . 'px;'
+                                . 'top:' . $productImage->getHeight() . 'px;';
+                        }
+                        ?>
+                        <?php // Product Image ?>
+                        <a href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>"
+                           class="product photo product-item-photo"
+                           tabindex="-1">
+                            <?= $productImage->toHtml() ?>
+                        </a>
+                        <div class="product details product-item-details">
+                            <?php $_productNameStripped = $block->stripTags($_product->getName(), null, true); ?>
+                            <strong class="product name product-item-name">
+                                <a class="product-item-link"
+                                   href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>">
+                                    <?=/* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name')?>
+                                </a>
+                            </strong>
+                            <?= /* @noEscape */ $block->getProductPrice($_product) ?>
+
+                            <?= $block->getProductDetailsHtml($_product) ?>
+
+                            <div class="product-item-inner">
+                                <div class="product actions product-item-actions">
+                                    <div class="actions-primary">
+                                        <?php if ($_product->isSaleable()):?>
+                                            <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                            <form data-role="tocart-form"
+                                                  data-product-sku="<?= $escaper->escapeHtml($_product->getSku()) ?>"
+                                                  action="<?= $escaper->escapeUrl($postParams['action']) ?>"
+                                                  data-mage-init='{"catalogAddToCart": {}}'
+                                                  method="post">
+
+                                                <?php if ($block->getData('viewModel')): ?>
+                                                    <?php $options = $block->getData('viewModel')->getOptionsData($_product); ?>
+                                                    <?php foreach ($options as $optionItem): ?>
+                                                        <input type="hidden"
+                                                               name="<?= $escaper->escapeHtml($optionItem['name']) ?>"
+                                                               value="<?= $escaper->escapeHtml($optionItem['value']) ?>">
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
+
+
+                                                    <input type="hidden"
+                                                           name="product"
+                                                           value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                                                    <input type="hidden"
+                                                           name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                                           value="<?=
+                                                           /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]
+                                                           ?>">
+                                                    <?= $block->getBlockHtml('formkey') ?>
+                                                    <button type="submit"
+                                                            title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                                            class="action tocart primary"
+                                                            disabled>
+                                                        <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                                                    </button>
+                                            </form>
+                                        <?php else:?>
+                                            <?php if ($_product->isAvailable()):?>
+                                                <div class="stock available">
+                                                    <span><?= $escaper->escapeHtml(__('In stock')) ?></span></div>
+                                            <?php else:?>
+                                                <div class="stock unavailable">
+                                                    <span><?= $escaper->escapeHtml(__('Out of stock')) ?></span></div>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div data-role="add-to-links" class="actions-secondary">
+                                        <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                                            <?= $addToBlock->setProduct($_product)->getChildHtml() ?>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+    </div>
+
+    <div class="current_cat_link">
+        <a href="<?=$category->getUrl()?>" class="cat_link">
+            <span class="cat_link_txt">View All Products</span>
+            <svg width="34" height="13" viewBox="0 0 34 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M33.601 7.10104C33.933 6.7691 33.933 6.2309 33.601 5.89896L28.1917 0.489592C27.8597 0.157647 27.3215 0.157647 26.9896 0.489592C26.6576 0.821538 26.6576 1.35973 26.9896 1.69167L31.7979 6.5L26.9896 11.3083C26.6576 11.6403 26.6576 12.1785 26.9896 12.5104C27.3215 12.8424 27.8597 12.8424 28.1917 12.5104L33.601 7.10104ZM0 7.35H33V5.65H0V7.35Z" fill="#db0000"></path>
+            </svg>
+        </a>
+    </div>
+
+
+    <?php // phpcs:ignore Magento2.Legacy.PhtmlTemplate ?>
+    <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form]": {
+                "catalogAddToCart": {}
+            }
+        }
+    </script>
+<?php endif; ?>

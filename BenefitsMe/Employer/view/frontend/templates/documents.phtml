@@ -1,0 +1,15 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+$currentCustomerId = $customerSession->getCustomer()->getId();
+
+$orders = $objectManager->create("Magento\Sales\Model\Order")->getCollection()->addFieldToFilter('customer_id', $currentCustomerId)->setOrder('created_at','DESC');
+
+foreach($orders as $order) {
+    $orderId = $order->getId();
+    if($order->getRisaPdf()) {
+        echo "<a target='_blank' href='".$order->getRisaPdf()."'>Installment Agreement #".$orderId."</a><br /><br />";
+    }
+}

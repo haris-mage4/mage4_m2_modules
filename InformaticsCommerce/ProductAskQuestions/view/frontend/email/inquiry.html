@@ -1,0 +1,38 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Product Inquiry" store_name=$store.frontend_name}} @-->
+<!--@vars {
+{{ var name}}
+{{ var sku}}
+{{ var grit}}
+{{ var package}}
+{{ var question}}
+} @-->
+{{template config_path="design/email/header_template"}}
+<h3>{{trans "Thanks for asking:"}}</h3>
+<p class="greeting">{{trans "Name: %name1, " name1=$name}}</p>
+<p class="greeting">{{trans "Sku: %name2, " name2=$sku}}</p>
+<p class="greeting">{{trans "Grit: %name3, " name3=$grit}}</p>
+<p class="greeting">{{trans "Package: %name4, " name4=$package}}</p>
+<p class="greeting">{{trans "Question: %name4, " name4=$question}}</p>
+
+
+<table class="button" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td>
+            <table class="inner-wrapper" border="0" cellspacing="0" cellpadding="0" align="center">
+                <tr>
+                    <td align="center">
+<!--                            <a href="{{var this.getUrl($store,'customer/account/changestatus/',[_query:[token:$customer.active_account_token],_nosid:1])}}" target="_blank">{{trans "Reactive Account"}}</a>-->
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

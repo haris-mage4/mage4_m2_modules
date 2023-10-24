@@ -1,0 +1,25 @@
+{
+    "customer_entity": {
+        "column": {
+            "upload_document": true
+        }
+    },
+    "quote": {
+        "column": {
+            "tax_exempt_number": true,
+            "upload_document": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "tax_exempt_number": true,
+            "upload_document": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "tax_exempt_number": true,
+            "upload_document": true
+        }
+    }
+}

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">shippingoptions_form.shippingoptions_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Option Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="InformaticsCommerce\UseMyShippingAccount\Block\Adminhtml\Option\Edit\Buttons\Back" />
+            <button name="delete" class="InformaticsCommerce\UseMyShippingAccount\Block\Adminhtml\Option\Edit\Buttons\Delete" />
+            <button name="reset" class="InformaticsCommerce\UseMyShippingAccount\Block\Adminhtml\Option\Edit\Buttons\Reset" />
+            <button name="save" class="InformaticsCommerce\UseMyShippingAccount\Block\Adminhtml\Option\Edit\Buttons\Save" />
+            <button name="save_and_continue" class="InformaticsCommerce\UseMyShippingAccount\Block\Adminhtml\Option\Edit\Buttons\SaveAndContinue" />
+        </buttons>
+        <namespace>shippingoptions_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>shippingoptions_form.shippingoptions_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="shippingoptions_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="shippingoptions/option/save"/>
+        </settings>
+        <dataProvider class="InformaticsCommerce\UseMyShippingAccount\Model\DataProvider" name="shippingoptions_form_data_source">
+            <settings>
+                <requestFieldName>option_id</requestFieldName>
+                <primaryFieldName>option_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="option_details">
+        <settings>
+            <label/>
+        </settings>
+        <field name="option_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>option_id</dataScope>
+            </settings>
+        </field>
+        <field name="option_label" formElement="input" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Option Label</label>
+                <dataScope>option_label</dataScope>
+            </settings>
+        </field>
+        <field name="option_code" formElement="input" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <notice>eg: the_code_123</notice>
+                <label translate="true">Option Code</label>
+                <dataScope>option_code</dataScope>
+            </settings>
+        </field>
+        <field name="apply_to" formElement="select" sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">InformaticsCommerce\UseMyShippingAccount\Model\Source\Active\Carriers</item>
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">apply_to</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>select</dataType>
+                <label translate="true">Apply To</label>
+                <dataScope>apply_to</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="option_input_type"  component="InformaticsCommerce_UseMyShippingAccount/js/form/element/options" formElement="select" sortOrder="40" >
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Eav\Model\Adminhtml\System\Config\Source\Inputtype</item>
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>string</dataType>
+                <label translate="true">Type</label>
+                <dataScope>option_input_type</dataScope>
+            </settings>
+        </field>
+        <field name="option_values"  formElement="textarea" sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">option_values</item>
+                </item>
+            </argument>
+            <settings>
+                <notice translate="true">Options (Comma-delimited)</notice>
+                <dataType>textarea</dataType>
+                <label translate="true">Option Values</label>
+                <dataScope>option_values</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <visible>false</visible>
+            </settings>
+        </field>
+        <field name="is_required" formElement="select" sortOrder="60">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">is_require</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>select</dataType>
+                <label translate="true">Is Required</label>
+                <dataScope>is_required</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+      <field name="option_default_value" formElement="input" sortOrder="70">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Default Value</label>
+                <dataScope>option_default_value</dataScope>
+            </settings>
+        </field>
+        <field name="sort_order" formElement="input" sortOrder="80">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Sort Order</label>
+                <dataScope>sort_order</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>

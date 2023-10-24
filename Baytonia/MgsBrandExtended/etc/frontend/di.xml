@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Controller\ResultInterface">
+        <plugin name="Amasty_SeoToolKit::processPageResult" disabled="true" />
+        <plugin name="amasty_seo_mgsbrand" type="Baytonia\MgsBrandExtended\Plugin\Framework\Controller\ProcessPageResultPlugin" sortOrder="-1" />
+    </type>
+</config>

@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @var \Mage4\Appointment\Block\Display $block
+ */
+?>
+<h3><?= __('Appointment Form') ?></h3>
+<table>
+	<tr>
+		<th><?= __('ID') ?></th>
+		<th><?= __('firstname') ?></th>
+		<th><?= __('LastName') ?></th>
+	    <th><?= __('Email') ?></th>
+		<th><?= __('Phone') ?></th>
+		<th><?= __('address') ?></th>
+		<th><?= __('Comment') ?></th>
+		<th><?= __('Created At') ?></th>
+	</tr>
+    <?php foreach ($block->getContactCollection() as $key=>$post){ ?>
+    <tr>
+    	<td><?= $post['id'] ?></td>
+    	<td><?= $post['firstname'] ?></td>
+    	<td><?= $post['lastname'] ?></td>
+    	<td><?= $post['email'] ?></td>
+    	<td><?= $post['phone'] ?></td>
+    	<td><?= $post['address'] ?></td>
+    	<td><?= $post['comment'] ?></td>
+    	<td><?= $post['created_at'] ?></td>
+    </tr>
+    <?php } ?>
+</table>

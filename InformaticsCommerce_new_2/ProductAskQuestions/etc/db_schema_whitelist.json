@@ -1,0 +1,16 @@
+{
+    "ic_productquestions": {
+        "column": {
+            "id": true,
+            "product_sku": true,
+            "customername": true,
+            "email": true,
+            "phonenumber": true,
+            "question": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "IC_PRODUCTQUESTIONS_PRODUCT_SKU_CATALOG_PRODUCT_ENTITY_SKU": true
+        }
+    }
+}

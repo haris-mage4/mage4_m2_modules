@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>مدى أو البطاقة الإئتمانية </title>
+	<meta name="description" content="مدى أو البطاقة الإئتمانية">
+	<meta name="author" content="RTLSOL">
+	 <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+	 <style type="text/css">
+	 	.bg-black{
+	 		background-color: #000;
+	 	}
+	 
+	 	form img{
+	 		height:30px;
+	 		margin-right: 5px;
+	 	}
+	 	form input+img{
+	 		margin-top: 11px;
+	 	}
+	 input{
+	 	direction: rtl;
+	 }
+	 </style>
+</head>
+	<body>
+		<div class="container">
+		<?php
+		$amount 		= isset($_GET['amount']) ? $_GET['amount'] : "";
+		$description 	= isset($_GET['description']) ? $_GET['description'] : "" ;
+		?>
+			<form accept-charset="UTF-8" id='formSubmit' method="POST" class="w-100 mt-4">
+				<input type="hidden" name="publishable_api_key" value="pk_live_U275ndBphFfWQ4heAiSEhe3T3U3SgHKDmNNDkdY9"/>
+				<input type="hidden" name="amount" value="<?php echo $amount; ?>" />
+				<input type="hidden" name="currency" value="SAR">
+				<input type="hidden" name="description" value="<?php echo $description; ?>" />
+				<input type="hidden" name="source[type]" value="stcpay" />
+				
+				<div class="form-group">
+					<label class="label" for="">
+						<img src="<?php echo $this->getViewFileUrl('Baytonia_Webpages::images/mada.png'); ?>" alt="STC"><span>STC pay | دفع عن طريق  STC</span>
+					</label>
+				</div>
+				<div class="form-group">
+				<label for="source-mobile">رقم الجوال </label>
+				<input type="text" id="source-mobile" class="form-control" name="source[mobile]"  value="" placeholder="XXX XXXXX XX" required/>
+				</div>
+				<input class="w-100 mt-3 bg-black p-2 pointer btn" name="submit" type="submit" value="تأكيد الطلب">
+				<!-- <button class="w-100 mt-3 bg-black p-2 pointer btn" type="submit" id='submit_button_id'><span class="text-white">تأكيد الطلب</span></button> -->
+			</form>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.cart.totals">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-totals" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="originalsubtotal" xsi:type="array">
+                                    <item name="component"  xsi:type="string">Baytonia_CartUpdate/js/view/checkout/cart/totals/originalsubtotal</item>
+                                    <item name="sortOrder" xsi:type="string">0</item>
+                                    <item name="config" xsi:type="array">
+                                         <item name="template" xsi:type="string">Baytonia_CartUpdate/checkout/cart/totals/originalsubtotal</item>
+                                        <item name="title" xsi:type="string" translate="true">Original Subtotal</item>
+                                    </item>
+                                </item>
+
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <!--<referenceContainer name="checkout.cart.totals.container">
+            <block class="Magento\Framework\View\Element\Template" name="checkout.cart.custom.block" before="checkout.cart.totals" template="Baytonia_CartUpdate::without_discount.phtml" />
+        </referenceContainer>-->
+    </body>
+</page>
