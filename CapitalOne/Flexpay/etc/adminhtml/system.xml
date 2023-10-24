@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="capitalone_section" translate="label" sortOrder="10" showInDefault="1">
+                <label>Capital One</label>
+                <group id="capitalone" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Basic Settings</label>
+                    <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Enable Gateway</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="environment" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Environment</label>
+                        <source_model>CapitalOne\Flexpay\Model\Adminhtml\Source\Environment</source_model>
+                        <config_path>payment/capitalone/environment</config_path>
+                    </field>
+                    <field id="payment_action" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Payment Action</label>
+                        <source_model>CapitalOne\Flexpay\Model\Adminhtml\Source\PaymentAction</source_model>
+                        <config_path>payment/capitalone/payment_action</config_path>
+                    </field>
+                    <field id="merchant_id" translate="label" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Merchant ID</label>
+                        <config_path>payment/capitalone/merchant_id</config_path>
+                        <depends>
+                            <field id="environment">production</field>
+                        </depends>
+                    </field>
+                    <field id="public_key" translate="label" type="obscure" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Public Key</label>
+                        <config_path>payment/capitalone/public_key</config_path>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <depends>
+                            <field id="environment">production</field>
+                        </depends>
+                    </field>
+                    <field id="private_key" translate="label" type="obscure" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Private Key</label>
+                        <config_path>payment/capitalone/private_key</config_path>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <depends>
+                            <field id="environment">production</field>
+                        </depends>
+                    </field>
+                    <field id="sandbox_merchant_id" translate="label" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Sandbox Merchant ID</label>
+                        <config_path>payment/capitalone/sandbox_merchant_id</config_path>
+                        <depends>
+                            <field id="environment">sandbox</field>
+                        </depends>
+                    </field>
+                    <field id="sandbox_public_key" translate="label" type="obscure" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Sandbox Public Key</label>
+                        <config_path>payment/capitalone/sandbox_public_key</config_path>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <depends>
+                            <field id="environment">sandbox</field>
+                        </depends>
+                    </field>
+                    <field id="sandbox_private_key" translate="label" type="obscure" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Sandbox Private Key</label>
+                        <config_path>payment/capitalone/sandbox_private_key</config_path>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <depends>
+                            <field id="environment">sandbox</field>
+                        </depends>
+                    </field>
+<!--                    <field id="key_validation" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">-->
+<!--                        <label></label>-->
+<!--                        <frontend_model>CapitalOne\Flexpay\Block\Adminhtml\Form\Field\Validation</frontend_model>-->
+<!--                    </field>-->
+                    <field id="cctypes" translate="label" type="multiselect" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Credit Card Types</label>
+                        <source_model>Magento\Payment\Model\Source\Cctype</source_model>
+                    </field>
+                </group>
+                <group id="capitalone_country_specific" translate="label" showInDefault="1" showInWebsite="1" sortOrder="30">
+                    <label>Country Specific Settings</label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
+                    <field id="allowspecific" translate="label" type="allowspecific" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Payment from Applicable Countries</label>
+                        <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                        <config_path>payment/capitalone/allowspecific</config_path>
+                    </field>
+                    <field id="specificcountry" translate="label" type="multiselect" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Payment from Specific Countries</label>
+                        <source_model>CapitalOne\Flexpay\Model\Adminhtml\System\Config\Country</source_model>
+                        <can_be_empty>1</can_be_empty>
+                        <config_path>payment/capitalone/specificcountry</config_path>
+                    </field>
+                    <field id="countrycreditcard" translate="label" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Country Specific Credit Card Types</label>
+                        <frontend_model>CapitalOne\Flexpay\Block\Adminhtml\Form\Field\CountryCreditCard</frontend_model>
+                        <backend_model>CapitalOne\Flexpay\Model\Adminhtml\System\Config\CountryCreditCard</backend_model>
+                        <config_path>payment/capitalone/countrycreditcard</config_path>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

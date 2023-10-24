@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+    <section id="mage4_google_api" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Google Calendar Api Integration</label>
+        <tab>mage4</tab>
+        <resource>Mage4_IntegrationGoogleCalendar::password_config</resource>
+        <group id='password_config' translate='label' type='text' sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Google Calendar Api Integration</label>
+            <field id='app_name' translate='label' type='text' sortOrder='20' showInDefault='1' showInWebsite='1' showInStore='1'>
+                <label>Application Name</label>
+            </field>
+             <field id='event_summary' translate='label' type='text' sortOrder='20' showInDefault='1' showInWebsite='1' showInStore='1'>
+                <label>Event Summary</label>
+            </field>
+            <field id='auth_uri' translate='label' type='text' sortOrder='30' showInDefault='1' showInWebsite='1' showInStore='1'>
+                <label>Authentication URI</label>
+            </field>
+            <field id='token_uri' translate='label' type='text' sortOrder='40' showInDefault='1' showInWebsite='1' showInStore='1'>
+                <label>Token URI</label>
+            </field>
+            <field id='auth_provider_cert_url' translate='label' type='text' sortOrder='70' showInDefault='1' showInWebsite='1' showInStore='1'>
+                <label>Access Provider</label>
+            </field>
+            <field id='redirect_uris' translate='label' type='text' sortOrder='50' showInDefault='1' showInWebsite='1' showInStore='1'>
+                <label>Redirect URI</label>
+            </field>
+        </group>
+    </section>
+    </system>
+</config>

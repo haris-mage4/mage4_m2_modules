@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c)  Mage4  2020.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mage4_google_api>
+            <password_config>
+                <app_name></app_name>
+                <event_summary></event_summary>
+                <auth_uri></auth_uri>
+                <token_uri></token_uri>
+                <auth_provider_cert_url></auth_provider_cert_url>
+                <redirect_uris></redirect_uris>
+                <access_token></access_token>
+            </password_config>
+        </mage4_google_api>
+    </default>
+</config>
